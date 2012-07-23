@@ -44,7 +44,7 @@ it has the following features:
 
     'path/info/a.rb' -> '$object_id/a.rb'
 
-- #[] and #[]= methods which allow the grid to be used like a giant file
+- [] and []= methods which allow the grid to be used like a giant file
   hash in the sky
 
 - supprt for data_uris
