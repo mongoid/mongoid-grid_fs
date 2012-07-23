@@ -49,7 +49,7 @@ it has the following features:
 
 - supprt for data_uris
 
-  ````eruby
+  ````erb
 
     <%= image_tag :src => file.data_url %>
 
