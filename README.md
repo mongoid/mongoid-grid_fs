@@ -24,7 +24,7 @@ SYNOPSIS
 
 DESCRIPTION
 -----------
-mongoid_grid_fs is pure mongoid 3  / moped implementation of the mongodb
+mongoid_grid_fs is a pure mongoid 3  / moped implementation of the mongodb
 grid_fs specification
 
 ref: http://www.mongodb.org/display/DOCS/GridFS+Specification
