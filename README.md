@@ -1,10 +1,10 @@
 NAME
 ----
-  mongoid_grid_fs
+  mongoid-grid_fs
 
 INSTALL
 -------
-  gem install mongoid_grid_fs
+  gem install mongoid-grid_fs
 
 SYNOPSIS
 --------
