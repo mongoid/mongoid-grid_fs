@@ -31,8 +31,8 @@ ref: http://www.mongodb.org/display/DOCS/GridFS+Specification
 
 it has the following features:
 
-- implementation is on top of mongoid for portability.  moped (the drive)
-  is barely used
+- implementation is on top of mongoid for portability.  moped (the driver) is
+  barely used
 
 - simple, REST-like api
 

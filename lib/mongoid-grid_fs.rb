@@ -340,7 +340,7 @@ class GridFS
       self.default_collection_name = "#{ prefix }.chunks"
 
       field(:n, :type => Integer, :default => 0)
-      field(:data, :type => Moped::BSON::Binary)
+      field(:data, :type => (defined?(Moped) ? Moped::BSON::Binary : BSON::Binary))
 
       belongs_to(:file, :foreign_key => :files_id, :class_name => file_model_name)
 
