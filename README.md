@@ -13,7 +13,7 @@ SYNOPSIS
 
   require 'mongoid-grid_fs'
 
-  g = GridFs.put anthing_that_respons_to_read
+  g = GridFs.put readable
 
   GridFS.get id
 
