@@ -51,6 +51,6 @@ it has the following features:
 
   ````erb
 
-    <%= image_tag :src => file.data_url %>
+    <%= image_tag :src => file.data_uri %>
 
   ````
