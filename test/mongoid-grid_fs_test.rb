@@ -142,6 +142,8 @@ Testing GridFs do
 
 protected
   def object_id_re
-    %r| \w{#{ BSON::ObjectId.new.to_s.size }} |iomx
+    object_id = defined?(Moped) ? Moped::BSON::ObjectId.new : BSON::ObjectId.new
+
+    %r| \w{#{ object_id.to_s.size }} |iomx
   end
 end
