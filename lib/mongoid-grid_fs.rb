@@ -1,7 +1,7 @@
 ##
 #
   class GridFS
-    const_set :Version, '1.1.0'
+    const_set :Version, '1.1.1'
 
     class << GridFS
       def version
@@ -250,6 +250,10 @@
           file = self[filename]
           file.destroy if file
           put(readable, :filename => filename.to_s)
+        end
+
+        def clear
+          file_model.destroy_all
         end
 
       # TODO - opening with a mode = 'w' should return a GridIO::IOProxy
