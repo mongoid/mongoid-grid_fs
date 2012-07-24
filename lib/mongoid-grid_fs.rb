@@ -1,7 +1,7 @@
 ##
 #
   class GridFS
-    const_set :Version, '1.1.2'
+    const_set :Version, '1.2.0'
 
     class << GridFS
       def version
@@ -185,7 +185,7 @@
               attributes[:contentType] ||=
                 GridFS.extract_content_type(filename) || file.contentType
 
-            while((buf = io.read(chunkSize)))
+            GridFS.chunking(io, chunkSize) do |buf|
               md5 << buf
               length += buf.size
               chunk = file.chunks.build
@@ -418,6 +418,27 @@
       else
         open(arg.to_s) do |io|
           block.call(io)
+        end
+      end
+    end
+
+    def GridFS.chunking(io, chunk_size, &block)
+      if io.method(:read).arity == 0
+        data = io.read
+        i = 0
+        loop do
+          offset = i * chunk_size
+          length = i + chunk_size < data.size ? chunk_size : data.size - offset
+
+          break if offset >= data.size
+
+          buf = data[offset, length]
+          block.call(buf)
+          i += 1
+        end
+      else
+        while((buf = io.read(chunk_size)))
+          block.call(buf)
         end
       end
     end
