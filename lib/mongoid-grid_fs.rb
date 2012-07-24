@@ -1,7 +1,7 @@
 ##
 #
   class GridFS
-    const_set :Version, '1.1.1'
+    const_set :Version, '1.1.2'
 
     class << GridFS
       def version
@@ -77,6 +77,7 @@
           find
           []
           []=
+          clear
         )
         
         to_delegate.each do |method|
