@@ -1,8 +1,12 @@
 require_relative 'helper'
 
-Testing GridFs do
+Testing Mongoid::GridFs do
 ##
 #
+  GridFS =
+  GridFs =
+    Mongoid::GridFS
+
   prepare do
     GridFS::File.destroy_all
     GridFS::Chunk.destroy_all
