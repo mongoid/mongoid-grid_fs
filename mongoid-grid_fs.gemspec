@@ -3,7 +3,7 @@
 
 Gem::Specification::new do |spec|
   spec.name = "mongoid-grid_fs"
-  spec.version = "1.3.0"
+  spec.version = "1.3.1"
   spec.platform = Gem::Platform::RUBY
   spec.summary = "mongoid-grid_fs"
   spec.description = "a mongoid 3/moped compatible implementation of the grid_fs specification"
