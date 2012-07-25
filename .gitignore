@@ -1,0 +1,9 @@
+.glimpse*
+.todo
+a.rb
+b.rb
+db/
+pkg/
+test/db.yml
+TODO
+*.sw*
