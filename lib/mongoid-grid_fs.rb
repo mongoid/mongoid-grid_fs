@@ -2,7 +2,7 @@
 #
   module Mongoid
     class GridFS
-      const_set :Version, '1.3.0'
+      const_set :Version, '1.3.1'
 
       class << GridFS
         def version
@@ -85,8 +85,8 @@
           
           to_delegate.each do |method|
             class_eval <<-__
-              def GridFS.#{ method }(*args, &block)
-                ::GridFS::Fs::#{ method }(*args, &block)
+              def self.#{ method }(*args, &block)
+                ::Mongoid::GridFS::Fs::#{ method }(*args, &block)
               end
             __
           end
