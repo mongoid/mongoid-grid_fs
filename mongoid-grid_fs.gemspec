@@ -3,7 +3,7 @@
 
 Gem::Specification::new do |spec|
   spec.name = "mongoid-grid_fs"
-  spec.version = "1.2.0"
+  spec.version = "1.2.1"
   spec.platform = Gem::Platform::RUBY
   spec.summary = "mongoid-grid_fs"
   spec.description = "a mongoid 3/moped compatible implementation of the grid_fs specification"
@@ -26,9 +26,9 @@ Gem::Specification::new do |spec|
   spec.test_files = nil
 
   
-    spec.add_dependency(*["mongoid", " >= 3.0.1"])
+    spec.add_dependency(*["mongoid", "~> 3.0.1"])
   
-    spec.add_dependency(*["mime-types", " >= 1.19"])
+    spec.add_dependency(*["mime-types", "~> 1.19"])
   
 
   spec.extensions.push(*[])

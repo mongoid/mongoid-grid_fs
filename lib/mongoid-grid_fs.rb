@@ -11,8 +11,8 @@
 
         def dependencies
           {
-            'mongoid'         => [ 'mongoid'         , '>= 3.0.1' ] ,
-            'mime/types'      => [ 'mime-types'      , '>= 1.19'  ] ,
+            'mongoid'         => [ 'mongoid'         , '~> 3.0.1' ] ,
+            'mime/types'      => [ 'mime-types'      , '~> 1.19'  ] ,
           }
         end
 
