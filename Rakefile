@@ -1,8 +1,8 @@
 This.name =
-  "Mongoid::GridFs"
+  "Mongoid::Sequence"
 
 This.synopsis =
-  "a mongoid 3/moped compatible implementation of the grid_fs specification"
+  "a mongoid 3/moped compatible sequence generator for your models"
 
 This.rubyforge_project = 'codeforpeople'
 This.author            = "Ara T. Howard"
