@@ -51,6 +51,10 @@
 
       require "digest/md5"
       require "cgi"
+
+      if defined?(::Rails::Railtie)
+        require 'mongoid-grid_fs/railtie'
+      end
     end
   end
 
@@ -133,9 +137,6 @@
 
         namespace.send(:const_set, :File, file_model)
         namespace.send(:const_set, :Chunk, chunk_model)
-
-        #at_exit{ file_model.create_indexes rescue nil }
-        #at_exit{ chunk_model.create_indexes rescue nil }
 
         const_get(const)
       end
