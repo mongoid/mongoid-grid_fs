@@ -1,10 +1,12 @@
 NAME
 ----
   mongoid-sequence
+  mongoid-grid_fs
 
 INSTALL
 -------
   gem install mongoid-sequence
+  gem install mongoid-grid_fs
 
 SYNOPSIS
 --------
@@ -33,3 +35,8 @@ DESCRIPTION
 -----------
 mongoid_sequence is a pure mongoid sequence generator based on mongodb's
 increment operator
+
+GRIDFS
+------
+Be sure to create indexes for the GridFS collections with `rake db:mongoid:create_indexes`.
+

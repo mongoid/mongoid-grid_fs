@@ -70,7 +70,7 @@ Testing Mongoid::GridFs do
       path = 'a.rb'
       data = IO.read(__FILE__)
 
-      sio = SIO.new(path, data) 
+      sio = StringIO.new(data) 
 
       g = assert{ GridFs[path] = sio and GridFs[path] }
 
@@ -79,7 +79,7 @@ Testing Mongoid::GridFs do
 
       before = GridFs::File.count
 
-      assert{ GridFs[path] = SIO.new(path, 'foobar') }
+      assert{ GridFs[path] = StringIO.new('foobar') }
       assert{ GridFs[path].data == 'foobar' }
 
       after = GridFs::File.count
