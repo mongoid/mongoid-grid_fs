@@ -58,6 +58,8 @@
 #
   module Mongoid
     class GridFS
+      DEFAULT_CHUNK_SIZE = 256 * 1024
+
       class << GridFS
         attr_accessor :namespace
         attr_accessor :file_model
@@ -293,7 +295,7 @@
           field(:contentType, :type => String, :default => 'application/octet-stream')
 
           field(:length, :type => Integer, :default => 0)
-          field(:chunkSize, :type => Integer, :default => (256 * (2 ** 20)))
+          field(:chunkSize, :type => Integer, :default => DEFAULT_CHUNK_SIZE)
           field(:uploadDate, :type => Date, :default => Time.now.utc)
           field(:md5, :type => String, :default => Digest::MD5.hexdigest(''))
 
