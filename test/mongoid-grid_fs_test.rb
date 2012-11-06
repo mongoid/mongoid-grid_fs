@@ -1,4 +1,5 @@
 require_relative 'helper'
+require 'pry'
 
 Testing Mongoid::GridFs do
 ##
@@ -105,6 +106,53 @@ Testing Mongoid::GridFs do
       assert{ g.data_uri == data_uri }
     end
 
+  end
+
+##
+#
+  context 'slicing and dicing' do
+
+    test 'range' do
+      id = assert { GridFS::File.last.id }
+      g = assert { GridFs.get(id) }
+      assert { g.data[1..3] == g.slice(1..3) }
+    end
+
+    test 'start and length' do
+      id = assert { GridFS::File.last.id }
+      g = assert { GridFs.get(id) }
+      assert { g.data[1, 3] == g.slice(1, 3) }
+    end
+
+    test 'just a single param' do
+      id = assert { GridFS::File.last.id }
+      g = assert {GridFs.get(id) }
+
+      assert {g.data[1] == g.slice(1) }
+    end
+
+    test 'getting the last index' do
+      id = assert { GridFS::File.last.id }
+      g = assert {GridFs.get(id) }
+      assert {g.data[-1] == g.slice(-1) }
+    end
+
+    test 'yanking from the end of the data' do
+      id = assert { GridFS::File.last.id }
+      g = assert {GridFs.get(id) }
+      assert {g.data[-3, 2] == g.slice(-3, 2) }
+    end
+
+    test 'multiple chunks...' do
+      path = 'slice_and_dice.txt'
+
+      assert { GridFs[path] = SIO.new(path, "foobar" * 256 * 1024) }
+
+      g = GridFs[path]
+
+      assert { g.chunks.count > 0 }
+      assert { g.data[10, (256 * 1024 * 2)] == g.slice(10, (256 * 1024 * 2)) }
+    end
   end
 
 ##
