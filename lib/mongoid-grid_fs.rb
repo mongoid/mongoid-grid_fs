@@ -327,17 +327,15 @@ require 'pry'
           end
 
           def slice(*args)
-            arg = args.first
-            
-            case arg
+            case args.first
             when Range
-              range = arg
+              range = args.first
               first_chunk = (range.min / chunkSize).floor
               last_chunk = (range.max / chunkSize).ceil
               start_offset = range.min % chunkSize
               length = range.max - range.min + 1
             when Fixnum
-              start = arg
+              start = args.first
               start = self.length + start if start < 0
               length = args.size == 2 ? args.last : 1
               first_chunk = (start / chunkSize).floor
