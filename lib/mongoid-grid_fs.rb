@@ -344,7 +344,7 @@ require 'pry'
             end
 
             data = ''
-            chunks.where(n: (first_chunk..last_chunk)).order_by([:n, :asc]).each do |chunk|
+            chunks.where(:n => (first_chunk..last_chunk)).order_by([:n, :asc]).each do |chunk|
               data << chunk
             end
 
