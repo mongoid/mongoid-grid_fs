@@ -2,7 +2,7 @@
 #
   module Mongoid
     class GridFS
-      const_set :Version, '1.4.0'
+      const_set :Version, '1.5.0'
 
       class << GridFS
         def version
@@ -293,7 +293,7 @@
           field(:contentType, :type => String, :default => 'application/octet-stream')
 
           field(:length, :type => Integer, :default => 0)
-          field(:chunkSize, :type => Integer, :default => (256 * (2 ** 10)))
+          field(:chunkSize, :type => Integer, :default => (4 * (mb = 2 ** 20)))
           field(:uploadDate, :type => Date, :default => Time.now.utc)
           field(:md5, :type => String, :default => Digest::MD5.hexdigest(''))
 
@@ -490,4 +490,12 @@
 
     GridFs = GridFS
     GridFS.init!
+  end
+
+##
+#
+  if defined?(Rails)
+    class Mongoid::GridFS::Engine < Rails::Engine
+      paths['app/models'] = File.dirname(__FILE__)
+    end
   end
