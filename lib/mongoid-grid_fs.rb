@@ -1,10 +1,8 @@
-require 'pry'
-
 ##
 #
   module Mongoid
     class GridFS
-      const_set :Version, '1.5.0'
+      const_set :Version, '1.6.0'
 
       class << GridFS
         def version
@@ -523,6 +521,7 @@ require 'pry'
 ##
 #
   if defined?(Rails)
+
     class Mongoid::GridFS::Engine < Rails::Engine
       paths['app/models'] = File.dirname(__FILE__)
     end

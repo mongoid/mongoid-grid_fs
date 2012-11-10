@@ -1,5 +1,4 @@
 require_relative 'helper'
-require 'pry'
 
 Testing Mongoid::GridFs do
 ##
