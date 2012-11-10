@@ -328,27 +328,28 @@ require 'pry'
 
           def slice(*args)
             case args.first
-            when Range
-              range = args.first
-              first_chunk = (range.min / chunkSize).floor
-              last_chunk = (range.max / chunkSize).floor
-              start_offset = range.min % chunkSize
-              length = range.max - range.min + 1
-            when Fixnum
-              start = args.first
-              start = self.length + start if start < 0
-              length = args.size == 2 ? args.last : 1
-              first_chunk = (start / chunkSize).floor
-              last_chunk = ((start + length) / chunkSize).floor
-              start_offset = start % chunkSize
+              when Range
+                range = args.first
+                first_chunk = (range.min / chunkSize).floor
+                last_chunk = (range.max / chunkSize).floor
+                offset = range.min % chunkSize
+                length = range.max - range.min + 1
+              when Fixnum
+                start = args.first
+                start = self.length + start if start < 0
+                length = args.size == 2 ? args.last : 1
+                first_chunk = (start / chunkSize).floor
+                last_chunk = ((start + length) / chunkSize).floor
+                offset = start % chunkSize
             end
 
             data = ''
-            chunks.where(:n => (first_chunk..last_chunk)).order_by([:n, :asc]).each do |chunk|
+
+            chunks.where(:n => (first_chunk..last_chunk)).order_by(n: 'asc').each do |chunk|
               data << chunk
             end
 
-            data[start_offset, length]
+            data[offset, length]
           end
 
           def data
