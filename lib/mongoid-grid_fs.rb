@@ -2,7 +2,7 @@
 #
   module Mongoid
     class GridFS
-      const_set :Version, '1.6.0'
+      const_set :Version, '1.7.0'
 
       class << GridFS
         def version
