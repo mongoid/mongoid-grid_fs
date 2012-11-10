@@ -1,2 +1,2 @@
-require 'mongoid-grid_fs.rb'
-Mongid::GridFS
+require 'mongoid-grid_fs.rb' unless defined?(Mongoid::GridFS)
+Mongoid::GridFS

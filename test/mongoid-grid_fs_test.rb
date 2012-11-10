@@ -190,6 +190,19 @@ Testing Mongoid::GridFs do
 
 ##
 #
+  context 'rails' do
+    test 'paths' do
+      testdir = File.dirname(__FILE__)
+      gemdir = File.dirname(testdir)
+      libdir = File.join(gemdir, 'lib')
+
+      expanded = proc{|paths| Array(paths).map{|path| File.expand_path(path)}}
+
+      assert{ 
+        expanded[ Mongoid::GridFS::Engine.paths['app/models'] ] == expanded[ libdir ]
+      }
+    end
+  end
 
 protected
   def object_id_re

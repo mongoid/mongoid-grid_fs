@@ -543,7 +543,6 @@
 ##
 #
   if defined?(Rails)
-
     class Mongoid::GridFS::Engine < Rails::Engine
       paths['app/models'] = File.dirname(__FILE__)
     end
