@@ -271,6 +271,23 @@
 
     ##
     #
+      class Defaults < ::Hash
+        def method_missing(method, *args, &block)
+          case method.to_s
+            when /(.*)=/
+              key = $1
+              val = args.first
+              update(key => val)
+            else
+              key = method.to_s
+              super unless has_key?(key)
+              fetch(key)
+          end
+        end
+      end
+
+    ##
+    #
       def GridFS.build_file_model_for(namespace)
         prefix = namespace.name.split(/::/).last.downcase
         file_model_name = "#{ namespace.name }::File"
@@ -283,17 +300,22 @@
 
           singleton_class.instance_eval do
             define_method(:name){ file_model_name }
-            attr_accessor :chunk_model
             attr_accessor :namespace
+            attr_accessor :chunk_model
+            attr_accessor :defaults
           end
 
           self.default_collection_name = "#{ prefix }.files"
+          self.defaults = Defaults.new
+
+          self.defaults.chunkSize = 4 * (mb = 2**20)
+          self.defaults.contentType = 'application/octet-stream'
 
           field(:filename, :type => String)
-          field(:contentType, :type => String, :default => 'application/octet-stream')
+          field(:contentType, :type => String, :default => defaults.contentType)
 
           field(:length, :type => Integer, :default => 0)
-          field(:chunkSize, :type => Integer, :default => (4 * (mb = 2 ** 20)))
+          field(:chunkSize, :type => Integer, :default => defaults.chunkSize)
           field(:uploadDate, :type => Date, :default => Time.now.utc)
           field(:md5, :type => String, :default => Digest::MD5.hexdigest(''))
 
