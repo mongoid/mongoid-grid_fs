@@ -331,7 +331,7 @@ require 'pry'
             when Range
               range = args.first
               first_chunk = (range.min / chunkSize).floor
-              last_chunk = (range.max / chunkSize).ceil
+              last_chunk = (range.max / chunkSize).floor
               start_offset = range.min % chunkSize
               length = range.max - range.min + 1
             when Fixnum
@@ -339,7 +339,7 @@ require 'pry'
               start = self.length + start if start < 0
               length = args.size == 2 ? args.last : 1
               first_chunk = (start / chunkSize).floor
-              last_chunk = ((start + length) / chunkSize).ceil
+              last_chunk = ((start + length) / chunkSize).floor
               start_offset = start % chunkSize
             end
 
