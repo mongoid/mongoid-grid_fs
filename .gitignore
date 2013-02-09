@@ -7,3 +7,4 @@ pkg/
 test/db.yml
 TODO
 *.sw*
+Gemfile.lock
