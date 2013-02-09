@@ -209,8 +209,8 @@
 
             file.save!
             file
-          ensure
-            chunks.each{|chunk| chunk.destroy rescue nil} if $!
+          rescue
+            chunks.each{|chunk| chunk.destroy rescue nil}
           end
 
           if defined?(Moped)
