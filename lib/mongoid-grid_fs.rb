@@ -82,7 +82,7 @@
             []=
             clear
           )
-          
+
           to_delegate.each do |method|
             class_eval <<-__
               def self.#{ method }(*args, &block)
@@ -316,7 +316,7 @@
 
           field(:length, :type => Integer, :default => 0)
           field(:chunkSize, :type => Integer, :default => defaults.chunkSize)
-          field(:uploadDate, :type => Date, :default => Time.now.utc)
+          field(:uploadDate, :type => Time, :default => Time.now.utc)
           field(:md5, :type => String, :default => Digest::MD5.hexdigest(''))
 
           %w( filename contentType length chunkSize uploadDate md5 ).each do |f|
@@ -326,7 +326,7 @@
 
           has_many(:chunks, :class_name => chunk_model_name, :inverse_of => :files, :dependent => :destroy, :order => [:n, :asc])
 
-          index({:filename => 1}, :unique => true) 
+          index({:filename => 1}, :unique => true)
 
           def path
             filename
@@ -406,7 +406,7 @@
             contentType
           end
 
-          def update_date 
+          def update_date
             updateDate
           end
 
@@ -445,7 +445,7 @@
 
           belongs_to(:file, :foreign_key => :files_id, :class_name => file_model_name)
 
-          index({:files_id => 1, :n => -1}, :unique => true) 
+          index({:files_id => 1, :n => -1}, :unique => true)
 
           def namespace
             self.class.namespace
