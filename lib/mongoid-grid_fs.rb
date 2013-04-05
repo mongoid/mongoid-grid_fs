@@ -204,6 +204,7 @@
             attributes[:length] ||= length
             attributes[:uploadDate] ||= Time.now.utc
             attributes[:md5] ||= md5.hexdigest
+            attributes[:chunkLength] = chunks.size
 
             file.update_attributes(attributes)
 
@@ -211,6 +212,7 @@
             file
           rescue
             chunks.each{|chunk| chunk.destroy rescue nil}
+            raise $!
           end
 
           if defined?(Moped)
@@ -341,8 +343,15 @@
           end
 
           def each(&block)
-            chunks.all.order_by([:n, :asc]).each do |chunk|
-              block.call(chunk.to_s)
+            fetched, limit = 0, 7
+
+            while fetched < chunkLength
+              chunks.where(:n.lt => fetched+limit, :n.gte => fetched).
+                order_by([:n, :asc]).each do |chunk|
+                  block.call(chunk.to_s)
+                end
+
+              fetched += limit
             end
           end
 
