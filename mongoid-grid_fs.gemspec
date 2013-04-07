@@ -35,7 +35,7 @@ Gem::Specification::new do |spec|
   spec.test_files = nil
 
   
-    spec.add_dependency(*["mongoid", "~> 3.0"])
+    spec.add_dependency(*["mongoid", "~> 4.0.0"])
   
     spec.add_dependency(*["mime-types", "~> 1.19"])
   
