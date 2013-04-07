@@ -591,4 +591,6 @@
         self.response_body = grid_fs_file
       end
     end
+
+    Mongoid::GridFS::Helper = Mongoid::GridFSHelper
   end
