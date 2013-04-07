@@ -2,7 +2,7 @@
 #
   module Mongoid
     class GridFS
-      const_set :Version, '1.7.1'
+      const_set :Version, '1.8.0'
 
       class << GridFS
         def version
@@ -516,18 +516,50 @@
 
       def GridFS.extract_basename(object)
         filename = nil
+
         [:original_path, :original_filename, :path, :filename, :pathname].each do |msg|
           if object.respond_to?(msg)
             filename = object.send(msg)
             break
           end
         end
+
         filename ? cleanname(filename) : nil
       end
 
-      def GridFS.extract_content_type(filename)
-        content_type = MIME::Types.type_for(::File.basename(filename.to_s)).first
-        content_type.to_s if content_type
+      MIME_TYPES = {
+        'md' => 'text/x-markdown; charset=UTF-8'
+      }
+
+      def GridFS.mime_types
+        MIME_TYPES
+      end
+
+      def GridFS.extract_content_type(filename, options = {})
+        options.to_options!
+
+        basename = ::File.basename(filename.to_s)
+        parts = basename.split('.')
+        parts.shift
+        ext = parts.pop
+
+        default =
+          case
+            when options[:default]==false
+              nil
+            when options[:default]==true
+              "application/octet-stream"
+            else
+              (options[:default] || "application/octet-stream").to_s
+          end
+
+        content_type = mime_types[ext] || MIME::Types.type_for(::File.basename(filename.to_s)).first
+
+        if content_type
+          content_type.to_s
+        else
+          default
+        end
       end
 
       def GridFS.cleanname(pathname)
@@ -545,5 +577,18 @@
   if defined?(Rails)
     class Mongoid::GridFS::Engine < Rails::Engine
       paths['app/models'] = File.dirname(__FILE__)
+    end
+
+    module Mongoid::GridFSHelper
+      def grid_fs_render(grid_fs_file, options = {})
+        options.to_options!
+
+        if options[:inline] == false or options[:attachment] == true
+          headers['Content-Disposition'] = "attachment; filename=#{ grid_fs_file.filename }"
+        end
+
+        self.content_type = grid_fs_file.content_type
+        self.response_body = grid_fs_file
+      end
     end
   end
