@@ -8,8 +8,8 @@ Testing Mongoid::GridFs do
     Mongoid::GridFS
 
   prepare do
-    GridFS::File.destroy_all
-    GridFS::Chunk.destroy_all
+    GridFS::File.delete_all
+    GridFS::Chunk.delete_all
   end
 
 ##
@@ -151,6 +151,26 @@ Testing Mongoid::GridFs do
 
       assert { g.chunks.count > 0 }
       assert { g.data[10, (256 * 1024 * 2)] == g.slice(10, (256 * 1024 * 2)) }
+    end
+  end
+
+##
+#
+  context 'iterating each chunk' do
+    test 'having file size more than 42mb' do
+      require 'tempfile'
+
+      orig, copy = %w{orig copy}.map do |suffix|
+        Tempfile.new("mongoid-grid_fs~43mb.#{suffix}")
+      end
+
+      system("dd if=/dev/zero of=#{orig.path} bs=43MB count=1 &> /dev/null")
+
+      GridFs.get(GridFs.put(orig.path).id).each do |chunk|
+        copy.print(chunk.to_s)
+      end
+
+      assert { File.size(copy.path) == File.size(orig.path) }
     end
   end
 
