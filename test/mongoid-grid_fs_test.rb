@@ -35,6 +35,12 @@ Testing Mongoid::GridFs do
       assert{ g.filename == filename }
     end
 
+    test 'when error occurs (eg. missing file)' do
+      file = '/path/to/missing'
+
+      assert_raises(Errno::ENOENT){ GridFs.put(file) }
+    end
+
   end
 
 

@@ -211,6 +211,7 @@
             file
           rescue
             chunks.each{|chunk| chunk.destroy rescue nil}
+            raise
           end
 
           if defined?(Moped)
