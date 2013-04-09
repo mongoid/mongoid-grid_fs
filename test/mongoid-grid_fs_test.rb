@@ -170,7 +170,7 @@ Testing Mongoid::GridFs do
         Tempfile.new("mongoid-grid_fs~43mb.#{suffix}")
       end
 
-      system("dd if=/dev/zero of=#{orig.path} bs=#{43*1024*1024} count=1 &> /dev/null")
+      system("dd if=/dev/zero of=#{orig.path} bs=43m count=1 &> /dev/null")
 
       GridFs.get(GridFs.put(orig.path).id).each do |chunk|
         copy.print(chunk.to_s)
