@@ -9,8 +9,7 @@ Gem::Specification::new do |spec|
   spec.description = "a mongoid 3/moped compatible implementation of the grid_fs specification"
 
   spec.files =
-["Gemfile",
- "README.md",
+["README.md",
  "Rakefile",
  "lib",
  "lib/app",
@@ -29,13 +28,13 @@ Gem::Specification::new do |spec|
  "test/testing.rb"]
 
   spec.executables = []
-  
+
   spec.require_path = "lib"
 
   spec.test_files = nil
 
   
-    spec.add_dependency(*["mongoid", "~> 3.0"])
+    spec.add_dependency(*["mongoid", ">= 3.0", "< 5.0"])
   
     spec.add_dependency(*["mime-types", "~> 1.19"])
   
