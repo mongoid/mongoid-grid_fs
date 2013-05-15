@@ -13,7 +13,7 @@ SYNOPSIS
 require 'mongoid-grid_fs'
 grid_fs = Mongoid::GridFs
 g = grid_fs.put(readable)
-g = g.id
+id = g.id
 grid_fs.get(id)
 grid_fs.delete(id)
 ````
