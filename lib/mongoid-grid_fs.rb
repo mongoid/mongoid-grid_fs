@@ -345,7 +345,7 @@
           def each(&block)
             fetched, limit = 0, 7
 
-            while fetched < chunkLength
+            while fetched < chunks.size
               chunks.where(:n.lt => fetched+limit, :n.gte => fetched).
                 order_by([:n, :asc]).each do |chunk|
                   block.call(chunk.to_s)
