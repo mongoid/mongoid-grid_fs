@@ -204,7 +204,6 @@
             attributes[:length] ||= length
             attributes[:uploadDate] ||= Time.now.utc
             attributes[:md5] ||= md5.hexdigest
-            attributes[:chunkLength] = chunks.size
 
             file.update_attributes(attributes)
 
