@@ -11,7 +11,7 @@
 
         def dependencies
           {
-            'mongoid'         => [ 'mongoid'         , '~> 3.0' ] ,
+            'mongoid'         => [ 'mongoid'         , '>= 3.0', '< 5.0' ] ,
             'mime/types'      => [ 'mime-types'      , '~> 1.19'] ,
           }
         end
@@ -82,7 +82,7 @@
             []=
             clear
           )
-          
+
           to_delegate.each do |method|
             class_eval <<-__
               def self.#{ method }(*args, &block)
@@ -317,7 +317,7 @@
 
           field(:length, :type => Integer, :default => 0)
           field(:chunkSize, :type => Integer, :default => defaults.chunkSize)
-          field(:uploadDate, :type => Date, :default => Time.now.utc)
+          field(:uploadDate, :type => Time, :default => Time.now.utc)
           field(:md5, :type => String, :default => Digest::MD5.hexdigest(''))
 
           %w( filename contentType length chunkSize uploadDate md5 ).each do |f|
@@ -327,7 +327,7 @@
 
           has_many(:chunks, :class_name => chunk_model_name, :inverse_of => :files, :dependent => :destroy, :order => [:n, :asc])
 
-          index({:filename => 1}, :unique => true) 
+          index({:filename => 1}, :unique => true)
 
           def path
             filename
@@ -342,8 +342,15 @@
           end
 
           def each(&block)
-            chunks.all.order_by([:n, :asc]).each do |chunk|
-              block.call(chunk.to_s)
+            fetched, limit = 0, 7
+
+            while fetched < chunks.size
+              chunks.where(:n.lt => fetched+limit, :n.gte => fetched).
+                order_by([:n, :asc]).each do |chunk|
+                  block.call(chunk.to_s)
+                end
+
+              fetched += limit
             end
           end
 
@@ -352,7 +359,7 @@
               when Range
                 range = args.first
                 first_chunk = (range.min / chunkSize).floor
-                last_chunk = (range.max / chunkSize).ceil
+                last_chunk = (range.max / chunkSize).floor
                 offset = range.min % chunkSize
                 length = range.max - range.min + 1
               when Fixnum
@@ -360,7 +367,7 @@
                 start = self.length + start if start < 0
                 length = args.size == 2 ? args.last : 1
                 first_chunk = (start / chunkSize).floor
-                last_chunk = ((start + length) / chunkSize).ceil
+                last_chunk = ((start + length) / chunkSize).floor
                 offset = start % chunkSize
             end
 
@@ -407,7 +414,7 @@
             contentType
           end
 
-          def update_date 
+          def update_date
             updateDate
           end
 
@@ -446,7 +453,7 @@
 
           belongs_to(:file, :foreign_key => :files_id, :class_name => file_model_name)
 
-          index({:files_id => 1, :n => -1}, :unique => true) 
+          index({:files_id => 1, :n => -1}, :unique => true)
 
           def namespace
             self.class.namespace

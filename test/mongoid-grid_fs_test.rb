@@ -8,8 +8,8 @@ Testing Mongoid::GridFs do
     Mongoid::GridFS
 
   prepare do
-    GridFS::File.destroy_all
-    GridFS::Chunk.destroy_all
+    GridFS::File.delete_all
+    GridFS::Chunk.delete_all
   end
 
 ##
@@ -76,7 +76,7 @@ Testing Mongoid::GridFs do
       path = 'a.rb'
       data = IO.read(__FILE__)
 
-      sio = SIO.new(path, data) 
+      sio = SIO.new(path, data)
 
       g = assert{ GridFs[path] = sio and GridFs[path] }
 
@@ -162,6 +162,26 @@ Testing Mongoid::GridFs do
 
 ##
 #
+  context 'iterating each chunk' do
+    test 'having file size more than 42mb' do
+      require 'tempfile'
+
+      orig, copy = %w{orig copy}.map do |suffix|
+        Tempfile.new("mongoid-grid_fs~43mb.#{suffix}")
+      end
+
+      assert system("dd if=/dev/zero of=#{orig.path} bs=#{43*1024*1024} count=1 &> /dev/null")
+
+      GridFs.get(GridFs.put(orig.path).id).each do |chunk|
+        copy.print(chunk.to_s)
+      end
+
+      assert { File.size(copy.path) == File.size(orig.path) }
+    end
+  end
+
+##
+#
   context 'namespaces' do
     test 'default' do
       assert{ GridFs.namespace.prefix == 'fs' }
@@ -204,7 +224,7 @@ Testing Mongoid::GridFs do
 
       expanded = proc{|paths| Array(paths).map{|path| File.expand_path(path)}}
 
-      assert{ 
+      assert{
         expanded[ Mongoid::GridFS::Engine.paths['app/models'] ] == expanded[ libdir ]
       }
     end
