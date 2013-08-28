@@ -296,6 +296,7 @@
 
         Class.new do
           include Mongoid::Document
+          include Mongoid::Attributes::Dynamic if Mongoid::VERSION.to_i >= 4
 
           singleton_class = class << self; self; end
 
