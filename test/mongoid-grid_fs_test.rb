@@ -35,6 +35,14 @@ Testing Mongoid::GridFs do
       assert{ g.filename == filename }
     end
 
+    test 'with your own attributes' do
+      my_value = "my_value"
+
+      g = assert{ GridFS.put(__FILE__, :my_value => my_value) }
+
+      assert{ g.my_value == my_value }
+    end
+
     test 'when error occurs (eg. missing file)' do
       file = '/path/to/missing'
 
