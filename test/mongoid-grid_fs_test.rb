@@ -232,7 +232,7 @@ Testing Mongoid::GridFs do
 
 protected
   def object_id_re
-    object_id = defined?(Moped) ? Moped::BSON::ObjectId.new : BSON::ObjectId.new
+    object_id = defined?(Moped) && defined?(Moped::BSON) ? Moped::BSON::ObjectId.new : BSON::ObjectId.new
 
     %r| \w{#{ object_id.to_s.size }} |iomx
   end
