@@ -214,8 +214,14 @@
             raise
           end
 
-          def binary_for(buf)
-            BSON::Binary.new(buf.bytes.to_a)
+          if defined?(Moped::BSON)
+            def binary_for(*buf)
+              Moped::BSON::Binary.new(:generic, buf.join)
+            end
+          else
+            def binary_for(buf)
+              BSON::Binary.new(buf.bytes.to_a)
+            end
           end
 
           def get(id)
@@ -444,7 +450,7 @@
           self.default_collection_name = "#{ prefix }.chunks"
 
           field(:n, :type => Integer, :default => 0)
-          field(:data, :type => BSON::Binary)
+          field(:data, :type => (defined?(Moped::BSON) ? Moped::BSON::Binary : BSON::Binary))
 
           belongs_to(:file, :foreign_key => :files_id, :class_name => file_model_name)
 
