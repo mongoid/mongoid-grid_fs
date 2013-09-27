@@ -214,13 +214,11 @@
             raise
           end
 
-          if defined?(Moped::BSON)
-            def binary_for(*buf)
+          def binary_for(*buf)
+            if defined?(Moped::BSON)
               Moped::BSON::Binary.new(:generic, buf.join)
-            end
-          else
-            def binary_for(buf)
-              BSON::Binary.new(buf.bytes.to_a)
+            else
+              BSON::Binary.new(buf.join, :generic)
             end
           end
 
