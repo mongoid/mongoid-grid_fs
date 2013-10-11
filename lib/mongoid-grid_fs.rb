@@ -305,7 +305,7 @@
             attr_accessor :defaults
           end
 
-          self.default_collection_name = "#{ prefix }.files"
+          store_in collection: "#{ prefix }.files"
           self.defaults = Defaults.new
 
           self.defaults.chunkSize = 4 * (mb = 2**20)
@@ -445,7 +445,7 @@
             attr_accessor :namespace
           end
 
-          self.default_collection_name = "#{ prefix }.chunks"
+          store_in collection: "#{ prefix }.chunks"
 
           field(:n, :type => Integer, :default => 0)
           field(:data, :type => (defined?(Moped::BSON) ? Moped::BSON::Binary : BSON::Binary))
