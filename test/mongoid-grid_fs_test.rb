@@ -193,8 +193,8 @@ Testing Mongoid::GridFs do
   context 'namespaces' do
     test 'default' do
       assert{ GridFs.namespace.prefix == 'fs' }
-      assert{ GridFs.file_model.collection_name == 'fs.files' }
-      assert{ GridFs.chunk_model.collection_name == 'fs.chunks' }
+      assert{ GridFs.file_model.collection_name.to_s == 'fs.files' }
+      assert{ GridFs.chunk_model.collection_name.to_s == 'fs.chunks' }
     end
 
     test 'new' do
@@ -203,10 +203,10 @@ Testing Mongoid::GridFs do
       assert{ ns.prefix == 'ns' }
 
       assert{ ns.file_model < Mongoid::Document }
-      assert{ ns.file_model.collection_name == 'ns.files' }
+      assert{ ns.file_model.collection_name.to_s == 'ns.files' }
 
       assert{ ns.chunk_model < Mongoid::Document }
-      assert{ ns.chunk_model.collection_name == 'ns.chunks' }
+      assert{ ns.chunk_model.collection_name.to_s == 'ns.chunks' }
 
       assert{ ns.file_model.destroy_all }
 
