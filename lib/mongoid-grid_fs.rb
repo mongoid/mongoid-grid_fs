@@ -12,7 +12,7 @@
         def dependencies
           {
             'mongoid'         => [ 'mongoid'         , '>= 3.0', '< 5.0' ] ,
-            'mime/types'      => [ 'mime-types'      , '>= 1.19'] ,
+            'mime/types'      => [ 'mime-types'      , '>= 1.19', '< 3.0'] ,
           }
         end
 
