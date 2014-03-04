@@ -2,7 +2,7 @@
 #
   module Mongoid
     class GridFS
-      const_set :Version, '1.9.1'
+      const_set :Version, '1.9.2'
 
       class << GridFS
         def version
@@ -12,7 +12,7 @@
         def dependencies
           {
             'mongoid'         => [ 'mongoid'         , '>= 3.0', '< 5.0' ] ,
-            'mime/types'      => [ 'mime-types'      , '>= 1.19', '< 2.0'] ,
+            'mime/types'      => [ 'mime-types'      , '>= 1.19', '< 3.0'] ,
           }
         end
 
