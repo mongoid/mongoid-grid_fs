@@ -11,8 +11,6 @@ class SIO < StringIO
   end
 end
 
-# this triggers mongoid to load rails...
-module Rails; end
 
 require_relative 'testing'
 require_relative '../lib/mongoid-grid_fs.rb'
@@ -21,4 +19,9 @@ Mongoid.configure do |config|
   config.connect_to('mongoid-grid_fs_test')
 end
 
+BEGIN {
+  gem 'rails', '>= 3', '< 4'
+  require 'rails'
+  require 'active_model'
+}
 

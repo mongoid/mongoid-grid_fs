@@ -8,31 +8,36 @@ INSTALL
 
 SYNOPSIS
 --------
+```ruby
+  require 'mongoid-grid_fs'
 
-````ruby
-require 'mongoid-grid_fs'
-grid_fs = Mongoid::GridFs
-g = grid_fs.put(readable)
-id = g.id
-grid_fs.get(id)
-grid_fs.delete(id)
-````
+  grid_fs = Mongoid::GridFs
+
+  g = grid_fs.put(readable)
+
+  id = g.id
+
+  grid_fs.get(id)
+
+  grid_fs.delete(id)
+```
 
 DESCRIPTION
 -----------
 mongoid_grid_fs is a pure mongoid 3  / moped implementation of the mongodb
 grid_fs specification
 
-ref: http://www.mongodb.org/display/DOCS/GridFS+Specification
+ref: http://docs.mongodb.org/manual/reference/gridfs/
 
 it has the following features:
 
 - implementation is on top of mongoid for portability.  moped (the driver) is
-  barely used
+  barely used, so the library should be quite durable except in the face of
+  massive changes to mongoid itself.
 
 - simple, REST-like api
 
-- support for custom namespaces (fs.files vs. image.files)
+- support for custom namespaces (fs.files vs. image.files, as per the spec)
 
 - pathnames and io-like objects can be written to the grid
 
@@ -43,8 +48,7 @@ it has the following features:
 - [] and []= methods which allow the grid to be used like a giant file
   hash in the sky
 
-- supprt for data_uris
-
+- supprt for data_uris, like a html5 boss
   ````erb
 
     <%= image_tag :src => file.data_uri %>

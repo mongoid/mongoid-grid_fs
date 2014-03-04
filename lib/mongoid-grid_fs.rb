@@ -2,7 +2,7 @@
 #
   module Mongoid
     class GridFS
-      const_set :Version, '1.9.0'
+      const_set :Version, '2.0.0'
 
       class << GridFS
         def version
@@ -12,7 +12,7 @@
         def dependencies
           {
             'mongoid'         => [ 'mongoid'         , '>= 3.0', '< 5.0' ] ,
-            'mime/types'      => [ 'mime-types'      , '~> 1.19'] ,
+            'mime/types'      => [ 'mime-types'      , '>= 1.19'] ,
           }
         end
 
@@ -173,20 +173,29 @@
               attributes[:uploadDate] = attributes.delete(:upload_date)
             end
 
+            if attributes.has_key?(:meta_data)
+              attributes[:metadata] = attributes.delete(:meta_data)
+            end
+
+            if attributes.has_key?(:aliases)
+              attributes[:aliases] = Array(attributes.delete(:aliases)).flatten.compact.map{|a| "#{ a }"}
+            end
+
             md5 = Digest::MD5.new
             length = 0
             chunkSize = file.chunkSize
             n = 0
 
             GridFS.reading(readable) do |io|
-
-              filename =
-                attributes[:filename] ||=
+              unless attributes.has_key?(:filename)
+                attributes[:filename] =
                   [file.id.to_s, GridFS.extract_basename(io)].join('/').squeeze('/')
+              end
 
-              content_type =
-                attributes[:contentType] ||=
-                  GridFS.extract_content_type(filename) || file.contentType
+              unless attributes.has_key?(:contentType)
+                attributes[:contentType] =
+                  GridFS.extract_content_type(attributes[:filename]) || file.contentType
+              end
 
               GridFS.chunking(io, chunkSize) do |buf|
                 md5 << buf
@@ -198,7 +207,6 @@
                 chunk.save!
                 chunks.push(chunk)
               end
-
             end
 
             attributes[:length] ||= length
@@ -246,12 +254,14 @@
           end
 
           def [](filename)
-            file_model.where(:filename => filename.to_s).first
+            file_model.
+              where(:filename => filename.to_s).
+                order_by(:uploadDate => :desc).
+                  limit(1).
+                    first
           end
 
           def []=(filename, readable)
-            file = self[filename]
-            file.destroy if file
             put(readable, :filename => filename.to_s)
           end
 
@@ -312,29 +322,51 @@
           self.defaults.chunkSize = 4 * (mb = 2**20)
           self.defaults.contentType = 'application/octet-stream'
 
-          field(:filename, :type => String)
-          field(:contentType, :type => String, :default => defaults.contentType)
-
           field(:length, :type => Integer, :default => 0)
           field(:chunkSize, :type => Integer, :default => defaults.chunkSize)
           field(:uploadDate, :type => Time, :default => Time.now.utc)
           field(:md5, :type => String, :default => Digest::MD5.hexdigest(''))
 
-          %w( filename contentType length chunkSize uploadDate md5 ).each do |f|
+          field(:filename, :type => String)
+          field(:contentType, :type => String, :default => defaults.contentType)
+          field(:aliases, :type => Array)
+          field(:metadata) rescue nil
+
+          required = %w( length chunkSize uploadDate md5 )
+          
+          required.each do |f|
             validates_presence_of(f)
           end
-          validates_uniqueness_of(:filename)
+
+          index({:filename => 1})
+          index({:aliases => 1})
+          index({:uploadDate => 1})
+          index({:md5 => 1})
 
           has_many(:chunks, :class_name => chunk_model_name, :inverse_of => :files, :dependent => :destroy, :order => [:n, :asc])
-
-          index({:filename => 1}, :unique => true)
 
           def path
             filename
           end
 
           def basename
-            ::File.basename(filename)
+            ::File.basename(filename) if filename
+          end
+
+          def attachment_filename(*paths)
+            return basename if basename
+
+            if paths.empty?
+              paths.push('attachment')
+              paths.push(id.to_s)
+              paths.push(updateDate.iso8601)
+            end
+
+            path = paths.join('--')
+            base = ::File.basename(path).split('.', 2).first
+            ext = GridFS.extract_extension(contentType)
+
+            "#{ base }.#{ ext }"
           end
 
           def prefix
@@ -570,6 +602,14 @@
         end
       end
 
+      def GridFS.extract_extension(content_type)
+        list = MIME::Types[content_type.to_s]
+        type = list.first
+        if type
+          type.extensions.first
+        end
+      end
+
       def GridFS.cleanname(pathname)
         basename = ::File.basename(pathname.to_s)
         CGI.unescape(basename).gsub(%r/[^0-9a-zA-Z_@)(~.-]/, '_').gsub(%r/_+/,'_')
@@ -592,7 +632,7 @@
         options.to_options!
 
         if options[:inline] == false or options[:attachment] == true
-          headers['Content-Disposition'] = "attachment; filename=#{ grid_fs_file.filename }"
+          headers['Content-Disposition'] = "attachment; filename=#{ grid_fs_file.attachment_filename }"
         end
 
         self.content_type = grid_fs_file.content_type
