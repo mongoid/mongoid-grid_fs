@@ -98,6 +98,7 @@ task :gemspec do
   test_files  = test(?e, "test/#{ lib }.rb") ? "test/#{ lib }.rb" : nil
   summary     = This.summary || This.synopsis || "#{ lib } kicks the ass"
   description = This.description || summary
+  license = 'Ruby' 
 
   if This.extensions.nil?
     This.extensions = []
@@ -135,6 +136,7 @@ task :gemspec do
             spec.platform = Gem::Platform::RUBY
             spec.summary = <%= lib.inspect %>
             spec.description = <%= description.inspect %>
+            spec.license = <%= license.inspect %>
 
             spec.files =\n<%= files.sort.pretty_inspect %>
             spec.executables = <%= executables.inspect %>

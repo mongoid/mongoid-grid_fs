@@ -21,4 +21,9 @@ Mongoid.configure do |config|
   config.connect_to('mongoid-grid_fs_test')
 end
 
+BEGIN {
+  gem 'rails', '>= 3', '< 4'
+  require 'rails'
+  require 'active_model'
+}
 
