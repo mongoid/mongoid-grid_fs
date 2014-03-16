@@ -93,14 +93,16 @@ Testing Mongoid::GridFs do
 
       before = GridFs::File.count
 
-      assert{ GridFs[path] = SIO.new(path, 'foobar') }
-      assert{ GridFs[path].data == 'foobar' }
+      data = "#{ Time.now.to_f }-#{ rand }"
+
+      assert{ GridFs[path] = SIO.new(path, data) }
+      assert{ GridFs[path].data == data }
 
       after = GridFs::File.count
 
       created = after - before
 
-      assert{ created.zero? }
+      assert{ created == 1 }
     end
 
 ##

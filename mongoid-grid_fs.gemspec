@@ -3,16 +3,22 @@
 
 Gem::Specification::new do |spec|
   spec.name = "mongoid-grid_fs"
-  spec.version = "1.9.2"
+  spec.version = "2.0.0"
   spec.platform = Gem::Platform::RUBY
   spec.summary = "mongoid-grid_fs"
-  spec.description = "a mongoid 3/moped compatible implementation of the grid_fs specification"
+  spec.description = "description: mongoid-grid_fs kicks the ass"
   spec.license = "Ruby"
 
   spec.files =
-["LICENSE",
+["Gemfile",
+ "LICENSE",
  "README.md",
  "Rakefile",
+ "config.rb",
+ "gemfiles",
+ "gemfiles/mongoid-3.0.gemfile",
+ "gemfiles/mongoid-3.1.gemfile",
+ "gemfiles/mongoid-4.0.gemfile",
  "lib",
  "lib/app",
  "lib/app/models",
@@ -24,6 +30,8 @@ Gem::Specification::new do |spec|
  "lib/app/models/mongoid/grid_fs/fs/file.rb",
  "lib/mongoid-grid_fs.rb",
  "mongoid-grid_fs.gemspec",
+ "script",
+ "script/shell",
  "test",
  "test/helper.rb",
  "test/mongoid-grid_fs_test.rb",

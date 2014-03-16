@@ -11,8 +11,6 @@ class SIO < StringIO
   end
 end
 
-# this triggers mongoid to load rails...
-module Rails; end
 
 require_relative 'testing'
 require_relative '../lib/mongoid-grid_fs.rb'
