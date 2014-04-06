@@ -1,0 +1,18 @@
+services: mongodb
+
+notifications:
+  email: false
+
+language: ruby
+before_install: gem install bundler
+cache: bundler
+script: bundle exec rake test
+rvm:
+  - 1.9.3
+  - 2.1.1
+
+gemfile:
+  - Gemfile
+  - gemfiles/mongoid-3.0.gemfile
+  - gemfiles/mongoid-3.1.gemfile
+  - gemfiles/mongoid-4.0.gemfile
