@@ -9,6 +9,7 @@ cache: bundler
 rvm:
   - 1.9.3
   - 2.1.1
+  - jruby-19mode
 
 gemfile:
   - Gemfile

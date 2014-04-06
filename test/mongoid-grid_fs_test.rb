@@ -185,8 +185,7 @@ Testing Mongoid::GridFs do
         copy.print(chunk.to_s)
       end
 
-      assert { (43*1024*1024) == File.size(copy.path) }
-      assert { (43*1024*1024) == File.size(orig.path) }
+      assert { File.size(orig.path) == File.size(copy.path) }
     end
   end
 
