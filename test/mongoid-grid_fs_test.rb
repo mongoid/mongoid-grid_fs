@@ -180,13 +180,15 @@ Testing Mongoid::GridFs do
         Tempfile.new("mongoid-grid_fs~43mb.#{suffix}")
       end
 
-      assert system("dd if=/dev/zero of=#{orig.path} bs=#{43*1024*1024} count=1 &> /dev/null")
+      kilobyte = "x" * 1024
+      (43*1024).times { orig.write(kilobyte) }
 
       GridFs.get(GridFs.put(orig.path).id).each do |chunk|
         copy.print(chunk.to_s)
       end
 
-      assert { File.size(copy.path) == File.size(orig.path) }
+      assert { (43*1024*1024) == File.size(copy.path) }
+      assert { (43*1024*1024) == File.size(orig.path) }
     end
   end
 
