@@ -54,3 +54,16 @@ it has the following features:
     <%= image_tag :src => file.data_uri %>
 
   ````
+
+CONTRIBUTING
+------------
+
+```
+$ bundle
+$ rake test
+```
+
+LICENSE
+-------
+
+This is licensed under the Ruby License: http://www.ruby-lang.org/en/about/license.txt
