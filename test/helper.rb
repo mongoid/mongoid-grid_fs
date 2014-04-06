@@ -12,7 +12,6 @@ class SIO < StringIO
   end
 end
 
-
 require_relative 'testing'
 require_relative '../lib/mongoid-grid_fs.rb'
 
