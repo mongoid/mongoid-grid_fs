@@ -20,8 +20,7 @@ Mongoid.configure do |config|
 end
 
 BEGIN {
-  gem 'rails', '>= 3', '< 4'
+  gem 'rails', '>= 3', '< 5'
   require 'rails'
   require 'active_model'
 }
-
