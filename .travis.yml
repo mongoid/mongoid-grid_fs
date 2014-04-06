@@ -5,6 +5,7 @@ notifications:
 
 language: ruby
 cache: bundler
+script: bundle exec rake test
 rvm:
   - 1.9.3
   - 2.1.1
