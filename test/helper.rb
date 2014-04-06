@@ -13,7 +13,7 @@ class SIO < StringIO
 end
 
 require_relative 'testing'
-require_relative '../lib/mongoid-grid_fs.rb'
+require_relative '../lib/mongoid/grid_fs'
 
 Mongoid.configure do |config|
   config.connect_to('mongoid-grid_fs_test')
