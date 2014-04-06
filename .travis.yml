@@ -6,7 +6,6 @@ notifications:
 language: ruby
 before_install: gem install bundler
 cache: bundler
-script: bundle exec rake test
 rvm:
   - 1.9.3
   - 2.1.1
