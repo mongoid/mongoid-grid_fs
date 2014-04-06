@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+require 'rails'
 require 'stringio'
 
 class SIO < StringIO
@@ -19,9 +20,5 @@ Mongoid.configure do |config|
   config.connect_to('mongoid-grid_fs_test')
 end
 
-BEGIN {
-  gem 'rails', '>= 3', '< 4'
-  require 'rails'
-  require 'active_model'
-}
-
+# Avoid annoying deprecation warning
+I18n.enforce_available_locales = false
