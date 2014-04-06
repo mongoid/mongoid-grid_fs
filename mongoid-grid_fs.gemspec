@@ -13,9 +13,8 @@ Gem::Specification::new do |spec|
   spec.homepage     = "https://github.com/ahoward/mongoid-grid_fs"
   spec.license      = "Ruby"
 
-  spec.files        = `git ls-files -z`.split("\x0")
-  spec.executables  = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files   = spec.files.grep(%r{^(test|spec|features)/})
+  spec.files         = Dir["{lib}/**/*"] + ["LICENSE", "Rakefile", "README.md"]
+  spec.test_files    = Dir["test/**/*"]
   spec.require_path = "lib"
 
   spec.add_dependency(*["mongoid", ">= 3.0", "< 5.0"])
