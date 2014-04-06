@@ -4,6 +4,7 @@ notifications:
   email: false
 
 language: ruby
+before_install: gem install bundler
 cache: bundler
 script: bundle exec rake test
 rvm:
