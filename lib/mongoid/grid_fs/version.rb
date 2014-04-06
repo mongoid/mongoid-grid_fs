@@ -1,5 +1,5 @@
 module Mongoid
-  module GridFs
+  class GridFs
     VERSION = "2.0.0"
   end
 end

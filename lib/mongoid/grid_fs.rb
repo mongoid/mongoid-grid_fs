@@ -4,18 +4,18 @@ require "mime/types"
 ##
 #
   module Mongoid
-    class GridFS
-      class << GridFS
+    class GridFs
+      class << GridFs
         attr_accessor :namespace
         attr_accessor :file_model
         attr_accessor :chunk_model
 
         def init!
-          GridFS.build_namespace_for(:Fs)
+          GridFs.build_namespace_for(:Fs)
 
-          GridFS.namespace = Fs
-          GridFS.file_model = Fs.file_model
-          GridFS.chunk_model = Fs.chunk_model
+          GridFs.namespace = Fs
+          GridFs.file_model = Fs.file_model
+          GridFs.chunk_model = Fs.chunk_model
 
           const_set(:File, Fs.file_model)
           const_set(:Chunk, Fs.chunk_model)
@@ -33,7 +33,7 @@ require "mime/types"
           to_delegate.each do |method|
             class_eval <<-__
               def self.#{ method }(*args, &block)
-                ::Mongoid::GridFS::Fs::#{ method }(*args, &block)
+                ::Mongoid::GridFs::Fs::#{ method }(*args, &block)
               end
             __
           end
@@ -42,16 +42,16 @@ require "mime/types"
 
     ##
     #
-      def GridFS.namespace_for(prefix)
+      def GridFs.namespace_for(prefix)
         prefix = prefix.to_s.downcase
-        const = "::GridFS::#{ prefix.to_s.camelize }"
+        const = "::GridFs::#{ prefix.to_s.camelize }"
         namespace = const.split(/::/).last
         const_defined?(namespace) ? const_get(namespace) : build_namespace_for(namespace)
       end
 
     ##
     #
-      def GridFS.build_namespace_for(prefix)
+      def GridFs.build_namespace_for(prefix)
         prefix = prefix.to_s.downcase
         const = prefix.camelize
 
@@ -133,18 +133,18 @@ require "mime/types"
             chunkSize = file.chunkSize
             n = 0
 
-            GridFS.reading(readable) do |io|
+            GridFs.reading(readable) do |io|
               unless attributes.has_key?(:filename)
                 attributes[:filename] =
-                  [file.id.to_s, GridFS.extract_basename(io)].join('/').squeeze('/')
+                  [file.id.to_s, GridFs.extract_basename(io)].join('/').squeeze('/')
               end
 
               unless attributes.has_key?(:contentType)
                 attributes[:contentType] =
-                  GridFS.extract_content_type(attributes[:filename]) || file.contentType
+                  GridFs.extract_content_type(attributes[:filename]) || file.contentType
               end
 
-              GridFS.chunking(io, chunkSize) do |buf|
+              GridFs.chunking(io, chunkSize) do |buf|
                 md5 << buf
                 length += buf.size
                 chunk = file.chunks.build
@@ -244,7 +244,7 @@ require "mime/types"
 
     ##
     #
-      def GridFS.build_file_model_for(namespace)
+      def GridFs.build_file_model_for(namespace)
         prefix = namespace.name.split(/::/).last.downcase
         file_model_name = "#{ namespace.name }::File"
         chunk_model_name = "#{ namespace.name }::Chunk"
@@ -311,7 +311,7 @@ require "mime/types"
 
             path = paths.join('--')
             base = ::File.basename(path).split('.', 2).first
-            ext = GridFS.extract_extension(contentType)
+            ext = GridFs.extract_extension(contentType)
 
             "#{ base }.#{ ext }"
           end
@@ -409,7 +409,7 @@ require "mime/types"
 
     ##
     #
-      def GridFS.build_chunk_model_for(namespace)
+      def GridFs.build_chunk_model_for(namespace)
         prefix = namespace.name.split(/::/).last.downcase
         file_model_name = "#{ namespace.name }::File"
         chunk_model_name = "#{ namespace.name }::Chunk"
@@ -448,7 +448,7 @@ require "mime/types"
 
     ##
     #
-      def GridFS.reading(arg, &block)
+      def GridFs.reading(arg, &block)
         if arg.respond_to?(:read)
           rewind(arg) do |io|
             block.call(io)
@@ -460,7 +460,7 @@ require "mime/types"
         end
       end
 
-      def GridFS.chunking(io, chunk_size, &block)
+      def GridFs.chunking(io, chunk_size, &block)
         if io.method(:read).arity == 0
           data = io.read
           i = 0
@@ -481,7 +481,7 @@ require "mime/types"
         end
       end
 
-      def GridFS.rewind(io, &block)
+      def GridFs.rewind(io, &block)
         begin
           pos = io.pos
           io.flush
@@ -501,7 +501,7 @@ require "mime/types"
         end
       end
 
-      def GridFS.extract_basename(object)
+      def GridFs.extract_basename(object)
         filename = nil
 
         [:original_path, :original_filename, :path, :filename, :pathname].each do |msg|
@@ -518,11 +518,11 @@ require "mime/types"
         'md' => 'text/x-markdown; charset=UTF-8'
       }
 
-      def GridFS.mime_types
+      def GridFs.mime_types
         MIME_TYPES
       end
 
-      def GridFS.extract_content_type(filename, options = {})
+      def GridFs.extract_content_type(filename, options = {})
         options.to_options!
 
         basename = ::File.basename(filename.to_s)
@@ -549,7 +549,7 @@ require "mime/types"
         end
       end
 
-      def GridFS.extract_extension(content_type)
+      def GridFs.extract_extension(content_type)
         list = MIME::Types[content_type.to_s]
         type = list.first
         if type
@@ -557,24 +557,24 @@ require "mime/types"
         end
       end
 
-      def GridFS.cleanname(pathname)
+      def GridFs.cleanname(pathname)
         basename = ::File.basename(pathname.to_s)
         CGI.unescape(basename).gsub(%r/[^0-9a-zA-Z_@)(~.-]/, '_').gsub(%r/_+/,'_')
       end
     end
 
-    GridFs = GridFS
-    GridFS.init!
+    GridFS = GridFs
+    GridFs.init!
   end
 
 ##
 #
   if defined?(Rails)
-    class Mongoid::GridFS::Engine < Rails::Engine
+    class Mongoid::GridFs::Engine < Rails::Engine
       paths['app/models'] = File.dirname(File.expand_path("../", __FILE__))
     end
 
-    module Mongoid::GridFSHelper
+    module Mongoid::GridFsHelper
       def grid_fs_render(grid_fs_file, options = {})
         options.to_options!
 
@@ -587,5 +587,5 @@ require "mime/types"
       end
     end
 
-    Mongoid::GridFS::Helper = Mongoid::GridFSHelper
+    Mongoid::GridFs::Helper = Mongoid::GridFsHelper
   end

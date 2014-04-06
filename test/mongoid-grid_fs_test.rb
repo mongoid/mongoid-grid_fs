@@ -3,13 +3,11 @@ require_relative 'helper'
 Testing Mongoid::GridFs do
 ##
 #
-  GridFS =
-  GridFs =
-    Mongoid::GridFS
+  GridFs = Mongoid::GridFs
 
   prepare do
-    GridFS::File.delete_all
-    GridFS::Chunk.delete_all
+    GridFs::File.delete_all
+    GridFs::Chunk.delete_all
   end
 
 ##
@@ -20,7 +18,7 @@ Testing Mongoid::GridFs do
       filename = __FILE__
       basename = File.basename(filename)
 
-      g = assert{ GridFS.put(filename) }
+      g = assert{ GridFs.put(filename) }
 
       assert{ g.filename =~ %r| #{ object_id_re } / #{ basename } \Z|imox }
       assert{ g.content_type == "application/x-ruby" }
@@ -30,7 +28,7 @@ Testing Mongoid::GridFs do
     test 'with a :filename' do
       filename = 'path/info/a.rb'
 
-      g = assert{ GridFS.put(__FILE__, :filename => filename) }
+      g = assert{ GridFs.put(__FILE__, :filename => filename) }
 
       assert{ g.filename == filename }
     end
@@ -38,7 +36,7 @@ Testing Mongoid::GridFs do
     test 'with your own attributes' do
       my_value = "my_value"
 
-      g = assert{ GridFS.put(__FILE__, :my_value => my_value) }
+      g = assert{ GridFs.put(__FILE__, :my_value => my_value) }
 
       assert{ g.my_value == my_value }
     end
@@ -57,7 +55,7 @@ Testing Mongoid::GridFs do
   context '#get' do
 
     test 'default' do
-      id = assert{ GridFS::File.last.id }
+      id = assert{ GridFs::File.last.id }
       g = assert{ GridFs.get(id) }
     end
 
@@ -68,7 +66,7 @@ Testing Mongoid::GridFs do
   context '#delete' do
 
     test 'default' do
-      id = assert{ GridFS::File.last.id }
+      id = assert{ GridFs::File.last.id }
       g = assert{ GridFs.get(id) }
       assert{ GridFs.delete(id) }
       assert_raises( Mongoid::Errors::DocumentNotFound){ GridFs.get(id) }
@@ -110,7 +108,7 @@ Testing Mongoid::GridFs do
   context 'data uris' do
 
     test 'default' do
-      id = assert{ GridFS::File.last.id }
+      id = assert{ GridFs::File.last.id }
       g = assert{ GridFs.get(id) }
 
       content_type = g.content_type
@@ -128,32 +126,32 @@ Testing Mongoid::GridFs do
   context 'slicing and dicing' do
 
     test 'range' do
-      id = assert { GridFS::File.last.id }
+      id = assert { GridFs::File.last.id }
       g = assert { GridFs.get(id) }
       assert { g.data[1..3] == g.slice(1..3) }
     end
 
     test 'start and length' do
-      id = assert { GridFS::File.last.id }
+      id = assert { GridFs::File.last.id }
       g = assert { GridFs.get(id) }
       assert { g.data[1, 3] == g.slice(1, 3) }
     end
 
     test 'just a single param' do
-      id = assert { GridFS::File.last.id }
+      id = assert { GridFs::File.last.id }
       g = assert {GridFs.get(id) }
 
       assert {g.data[1] == g.slice(1) }
     end
 
     test 'getting the last index' do
-      id = assert { GridFS::File.last.id }
+      id = assert { GridFs::File.last.id }
       g = assert {GridFs.get(id) }
       assert {g.data[-1] == g.slice(-1) }
     end
 
     test 'yanking from the end of the data' do
-      id = assert { GridFS::File.last.id }
+      id = assert { GridFs::File.last.id }
       g = assert {GridFs.get(id) }
       assert {g.data[-3, 2] == g.slice(-3, 2) }
     end
@@ -237,7 +235,7 @@ Testing Mongoid::GridFs do
       expanded = proc{|paths| Array(paths).map{|path| File.expand_path(path)}}
 
       assert{
-        expanded[ Mongoid::GridFS::Engine.paths['app/models'] ] == expanded[ libdir ]
+        expanded[ Mongoid::GridFs::Engine.paths['app/models'] ] == expanded[ libdir ]
       }
     end
   end

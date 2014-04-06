@@ -41,7 +41,7 @@
 #
   module ::Kernel
     def grid_fs
-      Mongoid::GridFS
+      Mongoid::GridFs
     end
   end
 
