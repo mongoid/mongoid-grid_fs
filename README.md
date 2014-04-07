@@ -1,35 +1,37 @@
-NAME
+mongoid-grid_fs [![Build Status](https://travis-ci.org/ahoward/mongoid-grid_fs.svg)](https://travis-ci.org/ahoward/mongoid-grid_fs)
 ----
-  mongoid-grid_fs
+
+A pure Mongoid/Moped implementation of the MongoDB GridFS specification
 
 INSTALL
 -------
-  gem install mongoid-grid_fs
+
+```
+gem install mongoid-grid_fs
+```
+
 
 SYNOPSIS
 --------
+
 ```ruby
-  require 'mongoid-grid_fs'
+require 'mongoid/grid_fs'
 
-  grid_fs = Mongoid::GridFs
+grid_fs = Mongoid::GridFs
+f = grid_fs.put(readable)
 
-  g = grid_fs.put(readable)
-
-  id = g.id
-
-  grid_fs.get(id)
-
-  grid_fs.delete(id)
+grid_fs.get(f.id)
+grid_fs.delete(f.id)
 ```
 
 DESCRIPTION
 -----------
-mongoid_grid_fs is a pure mongoid 3  / moped implementation of the mongodb
-grid_fs specification
 
-ref: http://docs.mongodb.org/manual/reference/gridfs/
+mongoid_grid_fs is A pure Mongoid/Moped implementation of the MongoDB GridFS specification
 
-it has the following features:
+Reference: http://docs.mongodb.org/manual/reference/gridfs/
+
+It has the following features:
 
 - implementation is on top of mongoid for portability.  moped (the driver) is
   barely used, so the library should be quite durable except in the face of
@@ -48,19 +50,18 @@ it has the following features:
 - [] and []= methods which allow the grid to be used like a giant file
   hash in the sky
 
-- supprt for data_uris, like a html5 boss
-  ````erb
+- support for data_uris, like a html5 boss
 
+    ```erb
     <%= image_tag :src => file.data_uri %>
-
-  ````
+    ```
 
 CONTRIBUTING
 ------------
 
 ```
-$ bundle
-$ rake test
+$ bundle install
+$ bundle exec rake test
 ```
 
 LICENSE
