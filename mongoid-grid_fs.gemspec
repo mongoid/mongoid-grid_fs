@@ -13,10 +13,10 @@ Gem::Specification::new do |spec|
   spec.homepage     = "https://github.com/ahoward/mongoid-grid_fs"
   spec.license      = "Ruby"
 
-  spec.files         = Dir["{lib}/**/*"] + ["LICENSE", "Rakefile", "README.md"]
-  spec.test_files    = Dir["test/**/*"]
+  spec.files        = Dir["{lib}/**/*"] + ["LICENSE", "Rakefile", "README.md"]
+  spec.test_files   = Dir["test/**/*"]
   spec.require_path = "lib"
 
-  spec.add_dependency(*["mongoid", ">= 3.0", "< 5.0"])
-  spec.add_dependency(*["mime-types", ">= 1.0", "< 3.0"])
+  spec.add_dependency "mongoid",    ">= 3.0", "< 5.0"
+  spec.add_dependency "mime-types", ">= 1.0", "< 3.0"
 end
