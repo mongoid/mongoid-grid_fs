@@ -1,4 +1,4 @@
-mongoid-grid_fs [![Build Status](https://travis-ci.org/ahoward/mongoid-grid_fs.svg)](https://travis-ci.org/ahoward/mongoid-grid_fs)
+mongoid-grid_fs [![Gem Version](https://badge.fury.io/rb/mongoid-grid_fs.svg)](http://badge.fury.io/rb/mongoid-grid_fs) [![Build Status](https://travis-ci.org/ahoward/mongoid-grid_fs.svg)](https://travis-ci.org/ahoward/mongoid-grid_fs)
 ----
 
 A pure Mongoid/Moped implementation of the MongoDB GridFS specification
