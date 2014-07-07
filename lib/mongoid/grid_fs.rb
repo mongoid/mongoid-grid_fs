@@ -170,7 +170,7 @@ require "mime/types"
           end
 
           def binary_for(*buf)
-            if defined?(Moped::BSON)
+            if defined?(Moped::BSON::Binary)
               Moped::BSON::Binary.new(:generic, buf.join)
             else
               BSON::Binary.new(buf.join, :generic)
