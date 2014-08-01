@@ -22,6 +22,11 @@ f = grid_fs.put(readable)
 
 grid_fs.get(f.id)
 grid_fs.delete(f.id)
+
+g = grid_fs.get(f.id)
+g.data # big huge blob
+g.data{|chunk| file.write(chunk)} # streaming write
+
 ```
 
 DESCRIPTION
