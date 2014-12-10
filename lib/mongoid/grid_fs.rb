@@ -324,7 +324,7 @@ require "mime/types"
             fetched, limit = 0, 7
 
             while fetched < chunks.size
-              chunks.where(:n.lt => fetched+limit, :n.gte => fetched).
+              chunks.lt(n: fetched+limit).gte(n: fetched).
                 order_by([:n, :asc]).each do |chunk|
                   block.call(chunk.to_s)
                 end
