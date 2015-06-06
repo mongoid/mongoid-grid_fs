@@ -25,7 +25,7 @@ grid_fs.delete(f.id)
 
 g = grid_fs.get(f.id)
 g.data # big huge blob
-g.data{|chunk| file.write(chunk)} # streaming write
+g.each { |chunk| file.write(chunk) } # streaming write
 
 ```
 
