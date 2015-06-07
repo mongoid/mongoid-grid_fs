@@ -69,7 +69,7 @@ Testing Mongoid::GridFs do
       id = assert{ GridFs::File.last.id }
       g = assert{ GridFs.get(id) }
       assert{ GridFs.delete(id) }
-      assert_raises( Mongoid::Errors::DocumentNotFound){ GridFs.get(id) }
+      assert_raises(Mongoid::Errors::DocumentNotFound){ GridFs.get(id) }
     end
 
   end

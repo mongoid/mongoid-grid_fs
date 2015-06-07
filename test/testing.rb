@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-require 'test/unit'
+require 'minitest/autorun'
 
 testdir = File.expand_path(File.dirname(__FILE__))
 rootdir = File.dirname(testdir)
@@ -21,7 +21,7 @@ class Testing
       new(words.join('-').downcase)
     end
   end
-  
+
   class Context
     attr_accessor :name
 
@@ -36,7 +36,8 @@ class Testing
 end
 
 def Testing(*args, &block)
-  Class.new(::Test::Unit::TestCase) do
+  Class.new(::Minitest::Test) do
+    i_suck_and_my_tests_are_order_dependent!
 
   ## class methods
   #
@@ -133,7 +134,7 @@ def Testing(*args, &block)
       if block
         label = "assert(#{ args.join(' ') })"
         result = nil
-        assert_nothing_raised{ result = block.call }
+        result = block.call
         __assert__(result, label)
         result
       else
@@ -175,7 +176,7 @@ def Testing(*args, &block)
     self.setup()
     self.prepare.each{|b| b.call()}
 
-    at_exit{ 
+    at_exit{
       self.teardown()
       self.cleanup.each{|b| b.call()}
     }

@@ -19,4 +19,5 @@ Gem::Specification::new do |spec|
 
   spec.add_dependency "mongoid",    ">= 3.0", "< 5.0"
   spec.add_dependency "mime-types", ">= 1.0", "< 3.0"
+  spec.add_development_dependency "minitest", ">= 5.7.0", "< 6.0"
 end

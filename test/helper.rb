@@ -20,4 +20,6 @@ Mongoid.configure do |config|
 end
 
 # Avoid annoying deprecation warning
-I18n.enforce_available_locales = false
+if I18n.respond_to?(:enforce_available_locales=)
+  I18n.enforce_available_locales = false
+end
