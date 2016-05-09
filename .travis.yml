@@ -10,7 +10,7 @@ cache: bundler
 rvm:
   - 2.1
   - 2.2
-  - jruby-19mode
+  - jruby-9.0.0.0
 gemfile:
   - Gemfile
   - gemfiles/mongoid-3.1.gemfile
