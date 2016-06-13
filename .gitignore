@@ -1,5 +1,6 @@
 .glimpse*
 .todo
+.ruby-version
 a.rb
 b.rb
 db/
