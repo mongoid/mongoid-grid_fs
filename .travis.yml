@@ -18,3 +18,8 @@ gemfile:
   - gemfiles/mongoid-5.0.gemfile
 matrix:
   fast_finish: true
+
+env:
+  global:
+    env:
+      - RUBYOPT='-W0'

@@ -19,6 +19,8 @@ Mongoid.configure do |config|
   config.connect_to('mongoid-grid_fs_test')
 end
 
+Mongo::Logger.logger.level = Logger::INFO if defined?(Mongo) == 'constant'
+
 # Avoid annoying deprecation warning
 if I18n.respond_to?(:enforce_available_locales=)
   I18n.enforce_available_locales = false
