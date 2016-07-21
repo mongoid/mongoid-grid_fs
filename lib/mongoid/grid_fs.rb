@@ -100,8 +100,7 @@ require "mime/types"
           end
 
           def put(readable, attributes = {})
-            chunks = []
-            file = file_model.new
+            file = file_model.create
             attributes.to_options!
 
             if attributes.has_key?(:id)
@@ -147,12 +146,8 @@ require "mime/types"
               GridFs.chunking(io, chunkSize) do |buf|
                 md5 << buf
                 length += buf.size
-                chunk = file.chunks.build
-                chunk.data = binary_for(buf)
-                chunk.n = n
+                chunk = file.chunks.create(data: binary_for(buf), n: n)
                 n += 1
-                chunk.save!
-                chunks.push(chunk)
               end
             end
 
@@ -162,10 +157,9 @@ require "mime/types"
 
             file.update_attributes(attributes)
 
-            file.save!
             file
           rescue
-            chunks.each{|chunk| chunk.destroy rescue nil}
+            file.destroy
             raise
           end
 
