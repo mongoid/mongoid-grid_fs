@@ -198,8 +198,9 @@ require "mime/types"
             file_model.
               where(:filename => filename.to_s).
                 order_by(:uploadDate => :desc).
-                  limit(1).
-                    first
+                  hint(:filename => 1).
+                    limit(1).
+                      first
           end
 
           def []=(filename, readable)
