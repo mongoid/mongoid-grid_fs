@@ -2,7 +2,7 @@ mongoid-grid_fs
 ---------------
 
 [![Gem Version](https://img.shields.io/gem/v/mongoid-grid_fs.svg)](https://rubygems.org/gems/mongoid-grid_fs)
-[![Build Status](https://travis-ci.org/ahoward/mongoid-grid_fs.svg)](https://travis-ci.org/ahoward/mongoid-grid_fs)
+[![Build Status](https://travis-ci.org/mongoid/mongoid-grid_fs.svg)](https://travis-ci.org/mongoid/mongoid-grid_fs)
 [![Gem Downloads](https://img.shields.io/gem/dt/mongoid-grid_fs.svg)](https://rubygems.org/gems/mongoid-grid_fs)
 
 A pure Mongoid/Moped implementation of the MongoDB GridFS specification
