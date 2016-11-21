@@ -164,7 +164,7 @@ require "mime/types"
           end
 
           def binary_for(*buf)
-            if defined?(Moped::BSON)
+            if defined?(Moped::BSON::Binary)
               Moped::BSON::Binary.new(:generic, buf.join)
             else
               BSON::Binary.new(buf.join, :generic)
@@ -422,7 +422,7 @@ require "mime/types"
           self.store_in :collection => "#{ prefix }.chunks"
 
           field(:n, :type => Integer, :default => 0)
-          field(:data, :type => (defined?(Moped::BSON) ? Moped::BSON::Binary : BSON::Binary))
+          field(:data, :type => (defined?(Moped::BSON::Binary) ? Moped::BSON::Binary : BSON::Binary))
 
           belongs_to(:file, :foreign_key => :files_id, :class_name => file_model_name)
 
