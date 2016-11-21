@@ -1,1 +1,1 @@
-require "mongoid/grid_fs"
+require 'mongoid/grid_fs'
