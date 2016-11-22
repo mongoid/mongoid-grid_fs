@@ -68,10 +68,7 @@ It has the following features:
 CONTRIBUTING
 ------------
 
-```
-$ bundle install
-$ bundle exec rake test
-```
+See [CONTRIBUTING](CONTRIBUTING.md).
 
 LICENSE
 -------
