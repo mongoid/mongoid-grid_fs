@@ -1,0 +1,9 @@
+AllCops:
+  Exclude:
+    - vendor/**/*
+    - gemfiles/vendor/**/*
+    - bin/**/*
+  Include:
+    - gemfiles/*.gemfile
+
+inherit_from: .rubocop_todo.yml

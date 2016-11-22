@@ -1,6 +1,10 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "rails"
-gem "mongoid", "~> 3.1.0"
+gem 'rails'
+gem 'mongoid', '~> 3.1.0'
 
-gemspec path: "../"
+gemspec path: '../'
+
+group :development, :test do
+  gem 'rubocop', '0.45.0'
+end
