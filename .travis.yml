@@ -10,10 +10,9 @@ before_install:
 cache: bundler
 
 rvm:
-  - 2.3.1
+  - 2.3.6
 
 gemfile:
-  - Gemfile
   - gemfiles/mongoid-3.1.gemfile
   - gemfiles/mongoid-4.0.gemfile
   - gemfiles/mongoid-5.0.gemfile
