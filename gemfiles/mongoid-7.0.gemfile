@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gem 'mongoid', '~> 7.0.0'
+gem 'rails', '~> 5.2'
+
+gemspec path: '../'
+
+group :development, :test do
+  gem 'rubocop', '0.55.0'
+end
