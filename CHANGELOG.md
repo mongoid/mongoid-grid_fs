@@ -3,6 +3,7 @@
 * [#61](https://github.com/mongoid/mongoid-grid_fs/pull/61): Mongoid 6 support - [@laCour](https://github.com/laCour).
 * [#65](https://github.com/mongoid/mongoid-grid_fs/pull/65): Added Danger, PR linter - [@dblock](https://github.com/dblock).
 * [#64](https://github.com/mongoid/mongoid-grid_fs/pull/64): Added RuboCop, ruby style linter - [@dblock](https://github.com/dblock).
+* [#70](https://github.com/mongoid/mongoid-grid_fs/pull/70): Mongoid 7 support - [@jonatack](https://github.com/jonatack).
 * Your contribution here.
 
 ### 2.2.2 (2016/06/13)
