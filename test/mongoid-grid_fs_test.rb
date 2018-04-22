@@ -52,7 +52,7 @@ Testing Mongoid::GridFs do
   context '#get' do
     test 'default' do
       id = assert { GridFs::File.last.id }
-      g = assert { GridFs.get(id) }
+      assert { GridFs.get(id) }
     end
   end
 
@@ -61,7 +61,7 @@ Testing Mongoid::GridFs do
   context '#delete' do
     test 'default' do
       id = assert { GridFs::File.last.id }
-      g = assert { GridFs.get(id) }
+      assert { GridFs.get(id) }
       assert { GridFs.delete(id) }
       assert_raises(Mongoid::Errors::DocumentNotFound) { GridFs.get(id) }
     end

@@ -6,7 +6,7 @@ gem 'mongoid', '~> 3.1.0'
 gemspec path: '../'
 
 group :development, :test do
-  gem 'rubocop', '0.45.0'
+  gem 'rubocop', '0.55.0'
 end
 
 group :test do

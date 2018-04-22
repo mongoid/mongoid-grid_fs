@@ -142,7 +142,7 @@ module Mongoid
             GridFs.chunking(io, chunkSize) do |buf|
               md5 << buf
               length += buf.size
-              chunk = file.chunks.create(data: binary_for(buf), n: n)
+              file.chunks.create(data: binary_for(buf), n: n)
               n += 1
             end
           end
@@ -268,10 +268,10 @@ module Mongoid
         field(:contentType, type: String, default: defaults.contentType)
         field(:aliases, type: Array)
         begin
-            field(:metadata)
-          rescue
-            nil
-          end
+          field(:metadata)
+        rescue
+          nil
+        end
 
         required = %w(length chunkSize uploadDate md5)
 
