@@ -18,9 +18,6 @@ gemfile:
   - gemfiles/mongoid-5.0.gemfile
   - gemfiles/mongoid-6.0.gemfile
 
-before_script:
-  - bundle exec danger
-
 env:
   global:
     env:
