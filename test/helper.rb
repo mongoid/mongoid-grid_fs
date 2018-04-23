@@ -1,5 +1,3 @@
-# -*- encoding : utf-8 -*-
-
 require 'rails'
 require 'stringio'
 
@@ -22,6 +20,4 @@ end
 Mongo::Logger.logger.level = Logger::INFO if defined?(Mongo) == 'constant'
 
 # Avoid annoying deprecation warning
-if I18n.respond_to?(:enforce_available_locales=)
-  I18n.enforce_available_locales = false
-end
+I18n.enforce_available_locales = false if I18n.respond_to?(:enforce_available_locales=)

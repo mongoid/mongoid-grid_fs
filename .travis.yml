@@ -12,16 +12,28 @@ cache: bundler
 rvm:
   - 2.3.6
 
-gemfile:
-  - gemfiles/mongoid-3.1.gemfile
-  - gemfiles/mongoid-4.0.gemfile
-  - gemfiles/mongoid-5.0.gemfile
-  - gemfiles/mongoid-6.0.gemfile
-
-before_script:
-  - bundle exec danger
-
 env:
-  global:
+  - MONGOID_VERSION=3
+  - MONGOID_VERSION=4
+  - MONGOID_VERSION=5
+  - MONGOID_VERSION=6
+  - MONGOID_VERSION=HEAD
+
+matrix:
+  include:
+    - rvm: 2.4.1
+      before_script:
+        - bundle exec danger --verbose
+  allow_failures:
+    - env: MONGOID_VERSION=HEAD
+
+addons:
+  apt:
+    sources:
+      - mongodb-3.2-precise
+    packages:
+      - mongodb-org-server
+
+global:
     env:
       - RUBYOPT='-W0'
