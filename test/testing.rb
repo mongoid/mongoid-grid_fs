@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 require 'minitest/autorun'
 
 testdir = File.expand_path(File.dirname(__FILE__))
@@ -16,7 +17,7 @@ class Testing
     def self.for(*args)
       string = args.flatten.compact.join('-')
       words = string.to_s.scan(/\w+/)
-      words.map! { |word| word.gsub /[^0-9a-zA-Z_-]/, '' }
+      words.map! { |word| word.gsub(/[^0-9a-zA-Z_-]/, '') }
       words.delete_if { |word| word.nil? || word.strip.empty? }
       new(words.join('-').downcase)
     end
@@ -35,7 +36,7 @@ class Testing
   end
 end
 
-def Testing(*args, &block)
+def Testing(*args, &block) # rubocop:disable Naming/MethodName
   Class.new(::Minitest::Test) do
     i_suck_and_my_tests_are_order_dependent!
 
@@ -62,7 +63,7 @@ def Testing(*args, &block)
       def slug_for(*args)
         string = [context, args].flatten.compact.join('-')
         words = string.to_s.scan(/\w+/)
-        words.map! { |word| word.gsub /[^0-9a-zA-Z_-]/, '' }
+        words.map! { |word| word.gsub(/[^0-9a-zA-Z_-]/, '') }
         words.delete_if { |word| word.nil? || word.strip.empty? }
         words.join('-').downcase.sub(/_$/, '')
       end
@@ -126,7 +127,7 @@ def Testing(*args, &block)
         expected = getopt(:expected, options) { missing }
         actual = getopt(:actual, options) { missing }
         if (expected == missing) && (actual == missing)
-          actual, expected, *ignored = options.to_a.flatten
+          actual, expected = options.to_a.flatten
         end
         expected = expected.call if expected.respond_to?(:call)
         actual = actual.call if actual.respond_to?(:call)
