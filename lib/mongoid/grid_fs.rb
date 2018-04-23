@@ -107,17 +107,11 @@ module Mongoid
 
           file.id = attributes.delete(:_id) if attributes.key?(:_id)
 
-          if attributes.key?(:content_type)
-            attributes[:contentType] = attributes.delete(:content_type)
-          end
+          attributes[:contentType] = attributes.delete(:content_type) if attributes.key?(:content_type)
 
-          if attributes.key?(:upload_date)
-            attributes[:uploadDate] = attributes.delete(:upload_date)
-          end
+          attributes[:uploadDate] = attributes.delete(:upload_date) if attributes.key?(:upload_date)
 
-          if attributes.key?(:meta_data)
-            attributes[:metadata] = attributes.delete(:meta_data)
-          end
+          attributes[:metadata] = attributes.delete(:meta_data) if attributes.key?(:meta_data)
 
           if attributes.key?(:aliases)
             attributes[:aliases] = Array(attributes.delete(:aliases)).flatten.compact.map(&:to_s)
@@ -154,7 +148,7 @@ module Mongoid
           file.update_attributes(attributes)
 
           file
-        rescue
+        rescue StandardError
           file.destroy
           raise
         end
@@ -173,7 +167,7 @@ module Mongoid
 
         def delete(id)
           file_model.find(id).destroy
-        rescue
+        rescue StandardError
           nil
         end
 
@@ -269,11 +263,11 @@ module Mongoid
         field(:aliases, type: Array)
         begin
             field(:metadata)
-          rescue
+          rescue StandardError
             nil
           end
 
-        required = %w(length chunkSize uploadDate md5)
+        required = %w[length chunkSize uploadDate md5]
 
         required.each do |f|
           validates_presence_of(f)
@@ -284,7 +278,7 @@ module Mongoid
         index(uploadDate: 1)
         index(md5: 1)
 
-        has_many(:chunks, class_name: chunk_model_name, inverse_of: :files, dependent: :destroy, order: [:n, :asc])
+        has_many(:chunks, class_name: chunk_model_name, inverse_of: :files, dependent: :destroy, order: %i[n asc])
 
         def path
           filename
@@ -320,7 +314,7 @@ module Mongoid
 
           while fetched < chunks.size
             chunks.where(:n.lt => fetched + limit, :n.gte => fetched)
-                  .order_by([:n, :asc]).each do |chunk|
+                  .order_by(%i[n asc]).each do |chunk|
               yield(chunk.to_s)
             end
 
@@ -481,7 +475,7 @@ module Mongoid
         pos = io.pos
         io.flush
         io.rewind
-      rescue
+      rescue StandardError
         nil
       end
 
@@ -490,7 +484,7 @@ module Mongoid
       ensure
         begin
           io.pos = pos
-        rescue
+        rescue StandardError
           nil
         end
       end
@@ -499,7 +493,7 @@ module Mongoid
     def self.extract_basename(object)
       filename = nil
 
-      [:original_path, :original_filename, :path, :filename, :pathname].each do |msg|
+      %i[original_path original_filename path filename pathname].each do |msg|
         if object.respond_to?(msg)
           filename = object.send(msg)
           break
@@ -563,7 +557,7 @@ end
 #
 if defined?(Rails)
   class Mongoid::GridFs::Engine < Rails::Engine
-    paths['app/models'] = File.dirname(File.expand_path('../', __FILE__))
+    paths['app/models'] = File.dirname(File.expand_path(__dir__))
   end
 
   module Mongoid::GridFsHelper

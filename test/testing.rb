@@ -1,7 +1,7 @@
-# -*- encoding : utf-8 -*-
+
 require 'minitest/autorun'
 
-testdir = File.expand_path(File.dirname(__FILE__))
+testdir = __dir__
 rootdir = File.dirname(testdir)
 libdir = File.join(rootdir, 'lib')
 
@@ -35,7 +35,7 @@ class Testing
   end
 end
 
-def Testing(*args, &block)
+def __testing(*args, &block)
   Class.new(::Minitest::Test) do
     i_suck_and_my_tests_are_order_dependent!
 
@@ -125,9 +125,7 @@ def Testing(*args, &block)
         options = args.first
         expected = getopt(:expected, options) { missing }
         actual = getopt(:actual, options) { missing }
-        if (expected == missing) && (actual == missing)
-          actual, expected, *ignored = options.to_a.flatten
-        end
+        actual, expected, *ignored = options.to_a.flatten if (expected == missing) && (actual == missing)
         expected = expected.call if expected.respond_to?(:call)
         actual = actual.call if actual.respond_to?(:call)
         assert_equal(expected, actual)
@@ -191,7 +189,7 @@ end
 
 if $PROGRAM_NAME == __FILE__
 
-  Testing 'Testing' do
+  __testing 'Testing' do
     testing('foo') { assert true }
     test { assert true }
     p instance_methods.grep(/test/)
