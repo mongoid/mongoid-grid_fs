@@ -1,22 +1,17 @@
 #! /usr/bin/env ruby
 
-#
 gem 'rails', '>= 3', '< 4'
 require 'rails'
 require 'active_model'
 
-#
 require 'pry'
 
-#
 require_relative '../lib/mongoid-grid_fs.rb'
 
-#
 Mongoid.configure do |config|
   config.connect_to('mongoid-grid_fs_test')
 end
 
-#
 require 'irb'
 
 $FUCKING_HACK = IRB.method(:load_modules)
@@ -38,14 +33,12 @@ def IRB.load_modules
   IRB.conf[:AUTO_INDENT] = true
 end
 
-#
 module ::Kernel
   def grid_fs
     Mongoid::GridFs
   end
 end
 
-#
 ARGV.clear
 
 ::IRB.start

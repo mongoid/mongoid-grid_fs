@@ -12,4 +12,4 @@ end
 require 'rubocop/rake_task'
 RuboCop::RakeTask.new(:rubocop)
 
-task default: [:rubocop, :test]
+task default: %i[rubocop test]

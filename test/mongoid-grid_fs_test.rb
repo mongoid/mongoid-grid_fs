@@ -1,6 +1,6 @@
 require_relative 'helper'
 
-Testing Mongoid::GridFs do
+__testing Mongoid::GridFs do
   ##
   #
   GridFs = Mongoid::GridFs
@@ -163,7 +163,7 @@ Testing Mongoid::GridFs do
       test 'having file size more than 42mb' do
         require 'tempfile'
 
-        orig, copy = %w(orig copy).map do |suffix|
+        orig, copy = %w[orig copy].map do |suffix|
           Tempfile.new("mongoid-grid_fs~43mb.#{suffix}")
         end
 
