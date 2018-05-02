@@ -1,7 +1,7 @@
-# -*- encoding : utf-8 -*-
+
 require 'minitest/autorun'
 
-testdir = File.expand_path(File.dirname(__FILE__))
+testdir = __dir__
 rootdir = File.dirname(testdir)
 libdir = File.join(rootdir, 'lib')
 
@@ -16,7 +16,7 @@ class Testing
     def self.for(*args)
       string = args.flatten.compact.join('-')
       words = string.to_s.scan(/\w+/)
-      words.map! { |word| word.gsub /[^0-9a-zA-Z_-]/, '' }
+      words.map! { |word| word.gsub(/[^0-9a-zA-Z_-]/, '') }
       words.delete_if { |word| word.nil? || word.strip.empty? }
       new(words.join('-').downcase)
     end
@@ -35,7 +35,7 @@ class Testing
   end
 end
 
-def Testing(*args, &block)
+def _testing(*args, &block)
   Class.new(::Minitest::Test) do
     i_suck_and_my_tests_are_order_dependent!
 
@@ -62,7 +62,7 @@ def Testing(*args, &block)
       def slug_for(*args)
         string = [context, args].flatten.compact.join('-')
         words = string.to_s.scan(/\w+/)
-        words.map! { |word| word.gsub /[^0-9a-zA-Z_-]/, '' }
+        words.map! { |word| word.gsub(/[^0-9a-zA-Z_-]/, '') }
         words.delete_if { |word| word.nil? || word.strip.empty? }
         words.join('-').downcase.sub(/_$/, '')
       end
@@ -72,7 +72,7 @@ def Testing(*args, &block)
       end
 
       def testno
-        '%05d' % (@testno ||= 0)
+        format('%05d', (@testno ||= 0))
       ensure
         @testno += 1
       end
@@ -111,7 +111,7 @@ def Testing(*args, &block)
     #
     const_set(:Testno, '0')
     slug = slug_for(*args).tr('-', '_')
-    name = ['TESTING', '%03d' % const_get(:Testno), slug].delete_if(&:empty?).join('_')
+    name = ['TESTING', format('%03d', const_get(:Testno)), slug].delete_if(&:empty?).join('_')
     name = name.upcase!
     const_set(:Name, name)
     const_set(:Missing, Object.new.freeze)
@@ -125,9 +125,7 @@ def Testing(*args, &block)
         options = args.first
         expected = getopt(:expected, options) { missing }
         actual = getopt(:actual, options) { missing }
-        if (expected == missing) && (actual == missing)
-          actual, expected, *ignored = options.to_a.flatten
-        end
+        actual, expected, = options.to_a.flatten if (expected == missing) && (actual == missing)
         expected = expected.call if expected.respond_to?(:call)
         actual = actual.call if actual.respond_to?(:call)
         assert_equal(expected, actual)
@@ -135,16 +133,14 @@ def Testing(*args, &block)
 
       result = if block
                  label = "assert(#{args.join(' ')})"
-                 result = nil
-                 result = yield
-                 __assert__(result, label)
-                 result
+                 yield
                else
                  result = args.shift
                  label = "assert(#{args.join(' ')})"
-                 __assert__(result, label)
                  result
-      end
+               end
+      __assert__(result, label)
+      result
     end
 
     def missing
@@ -191,7 +187,7 @@ end
 
 if $PROGRAM_NAME == __FILE__
 
-  Testing 'Testing' do
+  _testing 'Testing' do
     testing('foo') { assert true }
     test { assert true }
     p instance_methods.grep(/test/)

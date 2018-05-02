@@ -1,14 +1,15 @@
 source 'https://rubygems.org'
 
-gem 'rails'
 gem 'mongoid', '~> 3.1.0'
+gem 'rails'
 
 gemspec path: '../'
 
 group :development, :test do
-  gem 'rubocop', '0.45.0'
+  gem 'rubocop', '~> 0.55.0'
 end
 
 group :test do
+  gem 'minitest'
   gem 'mongoid-danger', '~> 0.1.0', require: false
 end
