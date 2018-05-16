@@ -17,9 +17,22 @@ gemfile:
   - gemfiles/mongoid-4.0.gemfile
   - gemfiles/mongoid-5.0.gemfile
   - gemfiles/mongoid-6.0.gemfile
+  - gemfiles/mongoid-7.0.gemfile
 
-before_script:
-  - bundle exec danger
+matrix:
+  include:
+    - rvm: 2.3.6
+      before_script:
+        - bundle exec danger --verbose
+  allow_failures:
+    - env: MONGOID_VERSION=HEAD
+
+addons:
+  apt:
+    sources:
+      - mongodb-3.2-precise
+    packages:
+      - mongodb-org-server
 
 env:
   global:
