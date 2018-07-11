@@ -1,3 +1,7 @@
+### 2.4.1 (Next)
+
+* Your contribution here.
+
 ### 2.4.0 (2018/07/11)
 
 * [#76](https://github.com/mongoid/mongoid-grid_fs/pull/76): Mongoid 7 support - [@dblock](https://github.com/dblock).
