@@ -1,10 +1,9 @@
-### 2.4.0 (Next)
+### 2.4.0 (2018/07/11)
 
 * [#76](https://github.com/mongoid/mongoid-grid_fs/pull/76): Mongoid 7 support - [@dblock](https://github.com/dblock).
 * [#61](https://github.com/mongoid/mongoid-grid_fs/pull/61): Mongoid 6 support - [@laCour](https://github.com/laCour).
 * [#65](https://github.com/mongoid/mongoid-grid_fs/pull/65): Added Danger, PR linter - [@dblock](https://github.com/dblock).
 * [#64](https://github.com/mongoid/mongoid-grid_fs/pull/64): Added RuboCop, ruby style linter - [@dblock](https://github.com/dblock).
-* Your contribution here.
 
 ### 2.2.2 (2016/06/13)
 
