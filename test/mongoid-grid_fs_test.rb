@@ -1,6 +1,6 @@
 require_relative 'helper'
 
-Testing Mongoid::GridFs do
+_testing Mongoid::GridFs do
   ##
   #
   GridFs = Mongoid::GridFs
@@ -52,7 +52,7 @@ Testing Mongoid::GridFs do
   context '#get' do
     test 'default' do
       id = assert { GridFs::File.last.id }
-      g = assert { GridFs.get(id) }
+      assert { GridFs.get(id) }
     end
   end
 
@@ -61,7 +61,7 @@ Testing Mongoid::GridFs do
   context '#delete' do
     test 'default' do
       id = assert { GridFs::File.last.id }
-      g = assert { GridFs.get(id) }
+      assert { GridFs.get(id) }
       assert { GridFs.delete(id) }
       assert_raises(Mongoid::Errors::DocumentNotFound) { GridFs.get(id) }
     end
@@ -163,7 +163,7 @@ Testing Mongoid::GridFs do
       test 'having file size more than 42mb' do
         require 'tempfile'
 
-        orig, copy = %w(orig copy).map do |suffix|
+        orig, copy = %w[orig copy].map do |suffix|
           Tempfile.new("mongoid-grid_fs~43mb.#{suffix}")
         end
 
@@ -202,7 +202,7 @@ Testing Mongoid::GridFs do
 
         count = GridFs::File.count
 
-        assert { ns.file_model.count == 0 }
+        assert { ns.file_model.count.zero? }
         assert { ns.put __FILE__ }
         assert { ns.file_model.count == 1 }
 
