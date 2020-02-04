@@ -1,20 +1,40 @@
 sudo: false
+
 services: mongodb
 
-notifications:
-  email: false
-
 language: ruby
-before_install: gem install bundler
+
+before_install:
+  - gem update bundler
+
 cache: bundler
+
 rvm:
-  - 2.1
-  - 2.2
-  - jruby-19mode
+  - 2.3.6
+
 gemfile:
-  - Gemfile
   - gemfiles/mongoid-3.1.gemfile
   - gemfiles/mongoid-4.0.gemfile
   - gemfiles/mongoid-5.0.gemfile
+  - gemfiles/mongoid-6.0.gemfile
+  - gemfiles/mongoid-7.0.gemfile
+
 matrix:
-  fast_finish: true
+  include:
+    - rvm: 2.3.6
+      before_script:
+        - bundle exec danger --verbose
+  allow_failures:
+    - env: MONGOID_VERSION=HEAD
+
+addons:
+  apt:
+    sources:
+      - mongodb-3.2-precise
+    packages:
+      - mongodb-org-server
+
+env:
+  global:
+    env:
+      - RUBYOPT='-W0'

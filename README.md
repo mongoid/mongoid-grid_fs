@@ -1,5 +1,8 @@
-mongoid-grid_fs [![Gem Version](http://img.shields.io/gem/v/mongoid-grid_fs.svg)](https://rubygems.org/gems/mongoid-grid_fs) [![Build Status](https://travis-ci.org/ahoward/mongoid-grid_fs.svg)](https://travis-ci.org/ahoward/mongoid-grid_fs)
-----
+mongoid-grid_fs
+---------------
+
+[![Gem Version](https://badge.fury.io/rb/mongoid-grid_fs.svg)](https://badge.fury.io/rb/mongoid-grid_fs)
+[![Build Status](https://travis-ci.org/mongoid/mongoid-grid_fs.svg)](https://travis-ci.org/mongoid/mongoid-grid_fs)
 
 A pure Mongoid/Moped implementation of the MongoDB GridFS specification
 
@@ -64,10 +67,7 @@ It has the following features:
 CONTRIBUTING
 ------------
 
-```
-$ bundle install
-$ bundle exec rake test
-```
+See [CONTRIBUTING](CONTRIBUTING.md).
 
 LICENSE
 -------
