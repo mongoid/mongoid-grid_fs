@@ -186,7 +186,7 @@ module Mongoid
           file_model
             .where(filename: filename.to_s)
             .order_by(uploadDate: :desc)
-            .extras(:hint => { :filename => 1 })
+            .extras(hint: { filename: 1 })
             .limit(1)
             .first
         end
