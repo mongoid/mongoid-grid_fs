@@ -1,6 +1,10 @@
-### 2.4.1 (Next)
+### 2.5.1 (Next)
 
 * Your contribution here.
+
+### 2.5.0 (Next)
+
+* [#77](https://github.com/mongoid/mongoid-grid_fs/pull/77): Mongoid 8 support - [@wulffeld](https://github.com/wulffeld).
 
 ### 2.4.0 (2018/07/11)
 

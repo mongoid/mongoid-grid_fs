@@ -18,6 +18,7 @@ gemfile:
   - gemfiles/mongoid-5.0.gemfile
   - gemfiles/mongoid-6.0.gemfile
   - gemfiles/mongoid-7.0.gemfile
+  - gemfiles/mongoid-8.0.gemfile
 
 matrix:
   include:

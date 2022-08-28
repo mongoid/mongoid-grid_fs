@@ -18,5 +18,5 @@ Gem::Specification.new do |spec|
   spec.require_path = 'lib'
 
   spec.add_dependency 'mime-types', '>= 1.0', '< 4.0'
-  spec.add_dependency 'mongoid',    '>= 3.0', '< 8.0'
+  spec.add_dependency 'mongoid',    '>= 3.0', '< 9.0'
 end
