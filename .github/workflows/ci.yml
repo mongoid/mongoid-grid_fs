@@ -1,0 +1,39 @@
+name: CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mongodb: ["4.4"]
+        ruby: ["2.5", "2.6", "2.7", "3.0"]
+        gemfile:
+          - mongoid-3.1
+          - mongoid-4.0
+          - mongoid-5.0
+          - mongoid-6.0
+          - mongoid-7.0
+          - mongoid-8.0
+
+    env:
+      BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
+    steps:
+      - name: Set up MongoDB ${{ matrix.mongodb }}
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-version: ${{ matrix.mongodb }}
+      # https://github.com/marketplace/actions/checkout
+      - uses: actions/checkout@v2
+      # https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Run tests
+        run: bundle exec rake
