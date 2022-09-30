@@ -10,5 +10,5 @@ end
 
 group :test do
   gem 'minitest'
-  gem 'mongoid-danger', '~> 0.1.0', require: false
+  gem 'mongoid-danger', '~> 0.2', require: false
 end
