@@ -17,6 +17,12 @@ Gem::Specification.new do |spec|
   spec.test_files   = Dir['test/**/*']
   spec.require_path = 'lib'
 
+  spec.add_development_dependency 'minitest'
+  spec.add_development_dependency 'mongoid-danger', '~> 0.2'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'rails'
+  spec.add_development_dependency 'rubocop', '~> 1.36.0'
+
   spec.add_dependency 'mime-types', '>= 1.0', '< 4.0'
   spec.add_dependency 'mongoid',    '>= 3.0', '< 9.0'
 end
