@@ -5,7 +5,7 @@ gemspec
 group :development, :test do
   gem 'pry'
   gem 'rails'
-  gem 'rubocop', '~> 0.55.0'
+  gem 'rubocop', '~> 1.36.0'
 end
 
 group :test do
