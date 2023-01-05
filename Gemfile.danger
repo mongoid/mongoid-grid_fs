@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+
+group :test do
+  gem 'mongoid-danger', '~> 0.2.0'
+end

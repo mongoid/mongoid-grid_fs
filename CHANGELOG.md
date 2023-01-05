@@ -1,5 +1,7 @@
 ### 2.4.1 (Next)
 
+* [#81](https://github.com/mongoid/mongoid-grid_fs/pull/81): Mongoid 8 support - [@dblock](https://github.com/dblock), [@rmm5t](https://github.com/rmm5t).
+* [#81](https://github.com/mongoid/mongoid-grid_fs/pull/81): Dropped support for Mongoid 3 - [@dblock](https://github.com/dblock), [@rmm5t](https://github.com/rmm5t).
 * Your contribution here.
 
 ### 2.4.0 (2018/07/11)
