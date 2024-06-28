@@ -24,5 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop', '~> 1.36.0'
 
   spec.add_dependency 'mime-types', '>= 1.0', '< 4.0'
-  spec.add_dependency 'mongoid',    '>= 3.0', '< 9.0'
+  spec.add_dependency 'mongoid',    '>= 3.0', '< 10.0'
 end
