@@ -1,6 +1,11 @@
-### 2.4.1 (Next)
+### Unreleased - TBD
 
 * [#82](https://github.com/mongoid/mongoid-grid_fs/pull/82): Mongoid 9 support - [@Nilpointer](https://github.com/Nilpointer).
+
+### 2.5.0 (2023/01/19)
+
+* [#81](https://github.com/mongoid/mongoid-grid_fs/pull/81): Mongoid 8 support - [@dblock](https://github.com/dblock), [@rmm5t](https://github.com/rmm5t).
+* [#81](https://github.com/mongoid/mongoid-grid_fs/pull/81): Dropped support for Mongoid 3 - [@dblock](https://github.com/dblock), [@rmm5t](https://github.com/rmm5t).
 
 ### 2.4.0 (2018/07/11)
 
