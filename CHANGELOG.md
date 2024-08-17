@@ -1,6 +1,6 @@
 ### 2.4.1 (Next)
 
-* [#82](https://github.com/mongoid/mongoid-grid_fs/pull/82): Mongoid 9.0.0 - [@Nilpointer](https://github.com/Nilpointer).
+* [#82](https://github.com/mongoid/mongoid-grid_fs/pull/82): Mongoid 9 - [@Nilpointer](https://github.com/Nilpointer).
 
 ### 2.4.0 (2018/07/11)
 
