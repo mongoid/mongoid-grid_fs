@@ -1,5 +1,6 @@
 ### Unreleased - TBD
 
+* Add support for Mongoid 9 - [@asgerb](https://github.com/asgerb)
 * Your contribution here.
 
 ### 2.5.0 (2023/01/19)
