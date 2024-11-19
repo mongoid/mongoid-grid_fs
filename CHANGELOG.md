@@ -1,3 +1,7 @@
+### 2.6.1 (Next)
+
+* Your contribution here.
+
 ### 2.6.0 (2024/11/19)
 
 * [#83](https://github.com/mongoid/mongoid-grid_fs/pull/83): Added support for Mongoid 9 - [@asgerb](https://github.com/asgerb).
