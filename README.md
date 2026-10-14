@@ -2,7 +2,8 @@ mongoid-grid_fs
 ---------------
 
 [![Gem Version](https://badge.fury.io/rb/mongoid-grid_fs.svg)](https://badge.fury.io/rb/mongoid-grid_fs)
-[![CI](https://github.com/mongoid/mongoid-grid_fs/actions/workflows/ci.yml/badge.svg)](https://github.com/mongoid/mongoid-grid_fs/actions/workflows/ci.yml)
+[![CI](https://github.com/mongoid/mongoid-grid_fs/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/mongoid/mongoid-grid_fs/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/mongoid/mongoid-grid_fs/badge.svg?branch=master)](https://coveralls.io/github/mongoid/mongoid-grid_fs?branch=master)
 
 A pure Mongoid/Moped implementation of the MongoDB GridFS specification
 

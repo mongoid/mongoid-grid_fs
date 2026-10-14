@@ -30,10 +30,11 @@ jobs:
           - { ruby: '3.3', mongodb: '6', gemfile: 'mongoid-9.0' }
           - { ruby: '3.4', mongodb: '7.0', gemfile: 'mongoid-9.0', bundler: '2.7.2' }
           - { ruby: '3.4', mongodb: '8.0', gemfile: 'mongoid-9.0', bundler: '2.7.2' }
-          - { ruby: '4.0', mongodb: '8.0', gemfile: 'mongoid-9.0', bundler: '2.7.2' }
+          - { ruby: '4.0', mongodb: '8.0', gemfile: 'mongoid-9.0', bundler: '2.7.2', coverage: true }
     name: test (ruby=${{ matrix.entry.ruby }}, mongodb=${{ matrix.entry.mongodb }}), gemfile=${{ matrix.entry.gemfile }})
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.entry.gemfile }}.gemfile
+      COVERAGE: ${{ matrix.entry.coverage && 'true' || 'false' }}
     services:
       mongodb:
         image: mongo:${{ matrix.entry.mongodb }}
@@ -54,3 +55,9 @@ jobs:
           bundler-cache: true
       - name: Run tests
         run: bundle exec rake
+      - name: Upload coverage to Coveralls
+        if: ${{ matrix.entry.coverage }}
+        uses: coverallsapp/github-action@v2
+        with:
+          file: coverage/.resultset.json
+          format: simplecov
