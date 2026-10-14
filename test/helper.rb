@@ -1,3 +1,12 @@
+if ENV['COVERAGE'] == 'true'
+  require 'simplecov'
+  SimpleCov.start do
+    add_filter '/test/'
+    add_filter '/vendor/'
+    track_files 'lib/**/*.rb'
+  end
+end
+
 require 'logger'
 require 'rails'
 require 'stringio'

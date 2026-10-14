@@ -11,3 +11,4 @@ Gemfile.lock
 Gemfile.danger.lock
 gemfiles/*.lock
 pkg/*
+coverage/

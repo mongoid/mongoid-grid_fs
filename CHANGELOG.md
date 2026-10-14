@@ -1,5 +1,6 @@
 ### 2.6.1 (Next)
 
+* [#85](https://github.com/mongoid/mongoid-grid_fs/pull/85): Report test coverage to Coveralls and update CI badges - [@dblock](https://github.com/dblock).
 * [#84](https://github.com/mongoid/mongoid-grid_fs/pull/84): Migrate Danger to danger-pr-comment workflows - [@dblock](https://github.com/dblock).
 * [#84](https://github.com/mongoid/mongoid-grid_fs/pull/84): Modernize CI through Ruby 4.0 and MongoDB 8 with Mongoid 9, use Bundler 2 for modern Rails, and explicitly load Logger for Rails 6 - [@dblock](https://github.com/dblock).
 * Your contribution here.
