@@ -8,5 +8,6 @@ test/db.yml
 TODO
 *.sw*
 Gemfile.lock
+Gemfile.danger.lock
 gemfiles/*.lock
 pkg/*

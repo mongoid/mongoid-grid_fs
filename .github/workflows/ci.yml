@@ -1,10 +1,14 @@
 name: CI
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         entry:
           - { ruby: '2.6', mongodb: '4.4', gemfile: 'mongoid-4.0', bundler: '1.17.3' }
@@ -24,20 +28,29 @@ jobs:
           - { ruby: '3.3', mongodb: '4', gemfile: 'mongoid-9.0' }
           - { ruby: '3.3', mongodb: '5', gemfile: 'mongoid-9.0' }
           - { ruby: '3.3', mongodb: '6', gemfile: 'mongoid-9.0' }
+          - { ruby: '3.4', mongodb: '7.0', gemfile: 'mongoid-9.0', bundler: '2.7.2' }
+          - { ruby: '3.4', mongodb: '8.0', gemfile: 'mongoid-9.0', bundler: '2.7.2' }
+          - { ruby: '4.0', mongodb: '8.0', gemfile: 'mongoid-9.0', bundler: '2.7.2' }
     name: test (ruby=${{ matrix.entry.ruby }}, mongodb=${{ matrix.entry.mongodb }}), gemfile=${{ matrix.entry.gemfile }})
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.entry.gemfile }}.gemfile
+    services:
+      mongodb:
+        image: mongo:${{ matrix.entry.mongodb }}
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.adminCommand({ping: 1})' || mongo --quiet --eval 'db.adminCommand({ping: 1})'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
     steps:
-      - name: Set up MongoDB ${{ matrix.entry.mongodb }}
-        uses: supercharge/mongodb-github-action@1.8.0
-        with:
-          mongodb-version: ${{ matrix.entry.mongodb }}
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.entry.ruby }}
-          bundler: '${{ matrix.entry.bundler || 1 }}'
+          bundler: '${{ matrix.entry.bundler || ''2.4.22'' }}'
           bundler-cache: true
       - name: Run tests
         run: bundle exec rake

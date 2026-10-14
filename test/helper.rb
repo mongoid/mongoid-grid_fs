@@ -1,3 +1,4 @@
+require 'logger'
 require 'rails'
 require 'stringio'
 
