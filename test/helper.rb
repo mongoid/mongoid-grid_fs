@@ -24,7 +24,12 @@ require_relative 'testing'
 require_relative '../lib/mongoid/grid_fs'
 
 Mongoid.configure do |config|
-  config.connect_to('mongoid-grid_fs_test')
+  if ENV['MONGODB_URI']
+    clients_key = Mongoid::VERSION.to_i >= 5 ? :clients : :sessions
+    config.load_configuration(clients_key => { default: { uri: ENV.fetch('MONGODB_URI') } })
+  else
+    config.connect_to('mongoid-grid_fs_test')
+  end
 end
 
 Mongo::Logger.logger.level = Logger::INFO if defined?(Mongo) == 'constant'
