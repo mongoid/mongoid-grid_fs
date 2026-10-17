@@ -32,6 +32,20 @@ bundle install
 bundle exec rake
 ```
 
+Tests use the `mongoid-grid_fs_test` database on localhost by default. To isolate a
+test run or use another MongoDB server, set `MONGODB_URI` to a dedicated test
+database (the suite deletes files and chunks in that database):
+
+```
+MONGODB_URI=mongodb://localhost:27017/mongoid_gridfs_coverage bundle exec rake
+```
+
+To collect library coverage with a modern matrix Gemfile, run:
+
+```
+COVERAGE=true BUNDLE_GEMFILE=gemfiles/mongoid-9.0.gemfile bundle exec rake
+```
+
 #### Write Tests
 
 Try to write a test that reproduces the problem you're trying to fix or describes a feature that you want to build. Add to [test](test).
