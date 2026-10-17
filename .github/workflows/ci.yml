@@ -34,7 +34,7 @@ jobs:
     name: test (ruby=${{ matrix.entry.ruby }}, mongodb=${{ matrix.entry.mongodb }}), gemfile=${{ matrix.entry.gemfile }})
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.entry.gemfile }}.gemfile
-      COVERAGE: ${{ matrix.entry.coverage && 'true' || 'false' }}
+      COVERAGE: ${{ matrix.entry.coverage }}
     services:
       mongodb:
         image: mongo:${{ matrix.entry.mongodb }}
