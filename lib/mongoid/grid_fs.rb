@@ -353,7 +353,7 @@ module Mongoid
         end
 
         def base64
-          Array(to_s).pack('m')
+          Array(data).pack('m')
         end
 
         def data_uri(_options = {})

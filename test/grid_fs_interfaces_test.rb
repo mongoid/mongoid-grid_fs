@@ -97,6 +97,16 @@ class GridFsInterfacesTest < Minitest::Test
     assert_equal "binary\x00payload".b, file.data
   end
 
+  def test_base64_and_data_uri_encode_the_stored_bytes
+    payload = "binary\x00\xffpayload".b * 12
+    file = @namespace.put(StringIO.new(payload), filename: 'encoded.bin', chunk_size: 8)
+    file = @namespace.get(file.id)
+
+    assert_equal [payload].pack('m'), file.base64
+    assert_equal payload, file.base64.unpack1('m')
+    assert_equal "data:application/octet-stream;base64,#{[payload].pack('m').chomp}", file.data_uri
+  end
+
   def test_explicit_gridfs_attributes
     uploaded_at = Time.utc(2021, 2, 3)
     file = @namespace.put(
