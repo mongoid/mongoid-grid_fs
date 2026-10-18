@@ -9,6 +9,7 @@ asgerb
 BSON
 bsoncompatibility
 Bundler
+chainable
 CHANGELOG
 Changelog
 charset
@@ -38,6 +39,7 @@ md
 minitest
 Mongoid
 mongoid
+Mongoid's
 MongoidGridFsRelease
 namespace
 namespaces
@@ -50,6 +52,7 @@ param
 Pathnames
 pathnames
 pdf
+PNG
 Rakefile
 rb
 README

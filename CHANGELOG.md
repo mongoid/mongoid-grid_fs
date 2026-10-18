@@ -2,6 +2,7 @@
 
 * [#45](https://github.com/mongoid/mongoid-grid_fs/pull/45): Encode stored file bytes rather than the model description in Base64 and data URIs - [@yudho](https://github.com/yudho), [@dblock](https://github.com/dblock).
 * [#48](https://github.com/mongoid/mongoid-grid_fs/pull/48): Check for the specific legacy BSON classes instead of the Moped namespace - [@jeremy6d](https://github.com/jeremy6d), [@dblock](https://github.com/dblock).
+* [#77](https://github.com/mongoid/mongoid-grid_fs/issues/77): Expose chainable `where` queries on the default GridFS API; document custom namespaces and storage configuration - [@dblock](https://github.com/dblock).
 * [#86](https://github.com/mongoid/mongoid-grid_fs/pull/86): Expand persisted GridFS coverage for streaming, upload failures, namespaces, attributes, queries, historical records without `updateDate`, and Rails responses - [@dblock](https://github.com/dblock).
 * [#85](https://github.com/mongoid/mongoid-grid_fs/pull/85): Report test coverage to Coveralls and update CI badges - [@dblock](https://github.com/dblock).
 * [#84](https://github.com/mongoid/mongoid-grid_fs/pull/84): Migrate Danger to danger-pr-comment workflows - [@dblock](https://github.com/dblock).

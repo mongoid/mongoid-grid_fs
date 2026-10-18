@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'helper'
+require 'tempfile'
 
 class GridFsInterfacesTest < Minitest::Test
   GridFs = Mongoid::GridFs
@@ -98,10 +99,11 @@ class GridFsInterfacesTest < Minitest::Test
   end
 
   def test_base64_and_data_uri_encode_the_stored_bytes
-    payload = "binary\x00\xffpayload".b * 12
-    file = @namespace.put(StringIO.new(payload), filename: 'encoded.bin', chunk_size: 8)
+    payload = "binary\x00\xffpayload".b * ((@namespace.file_model.defaults.chunkSize / 14) + 1)
+    file = @namespace.put(StringIO.new(payload), filename: 'encoded.bin')
     file = @namespace.get(file.id)
 
+    assert_operator file.chunks.count, :>, 1
     assert_equal [payload].pack('m'), file.base64
     assert_equal payload, file.base64.unpack1('m')
     assert_equal "data:application/octet-stream;base64,#{[payload].pack('m').chomp}", file.data_uri
@@ -151,6 +153,47 @@ class GridFsInterfacesTest < Minitest::Test
     assert_equal 0, @namespace.file_model.count
     assert_equal 0, @namespace.chunk_model.count
     assert_raises(Mongoid::Errors::DocumentNotFound) { @namespace.get(file.id) }
+  end
+
+  def test_default_namespace_where_returns_chainable_multiple_results
+    files = [
+      GridFs.put(StringIO.new('one'), filename: 'where-regression.txt'),
+      GridFs.put(StringIO.new('two'), filename: 'where-regression.txt')
+    ]
+
+    assert_equal files.map(&:id).sort, GridFs.where('where-regression.txt').map(&:id).sort
+    assert_equal files.map(&:id).sort, GridFs.where(filename: 'where-regression.txt').map(&:id).sort
+    assert_equal [files.last.id], GridFs.where(filename: 'where-regression.txt').where(md5: files.last.md5).map(&:id)
+  ensure
+    files&.each(&:destroy)
+  end
+
+  def test_destroy_removes_all_chunks_without_removing_another_files_chunks
+    removed = @namespace.put(StringIO.new('x' * (@namespace.file_model.defaults.chunkSize + 1)))
+    retained = @namespace.put(StringIO.new('retained chunks'))
+    removed_chunk_ids = removed.chunks.map(&:id)
+    retained_chunk_ids = retained.chunks.map(&:id)
+    assert_operator removed_chunk_ids.size, :>, 1
+
+    @namespace.get(removed.id).destroy
+
+    assert_empty @namespace.file_model.where(id: removed.id).to_a
+    assert_empty @namespace.chunk_model.where(:id.in => removed_chunk_ids).to_a
+    assert_equal retained_chunk_ids.sort, @namespace.chunk_model.where(files_id: retained.id).map(&:id).sort
+    assert_equal 'retained chunks', @namespace.get(retained.id).data
+  end
+
+  def test_binary_path_upload_preserves_non_utf8_bytes
+    payload = "\x89PNG\r\n\x1a\n\xff\x00".b * ((@namespace.file_model.defaults.chunkSize / 10) + 1)
+    Tempfile.create(['gridfs-binary', '.png']) do |io|
+      io.binmode
+      io.write(payload)
+      io.flush
+      file = @namespace.put(io.path)
+
+      assert_operator file.chunks.count, :>, 1
+      assert_equal payload, @namespace.get(file.id).data
+    end
   end
 
   def test_streaming_and_slicing_across_more_than_one_fetch_batch
