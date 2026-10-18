@@ -24,6 +24,7 @@ module Mongoid
           put
           get
           delete
+          where
           find
           []
           []=
