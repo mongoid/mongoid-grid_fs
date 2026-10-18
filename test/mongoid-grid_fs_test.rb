@@ -103,7 +103,7 @@ _testing Mongoid::GridFs do
         g = assert { GridFs.get(id) }
 
         content_type = g.content_type
-        base64 = [g.to_s].pack('m').chomp
+        base64 = [g.data].pack('m').chomp
 
         data_uri = "data:#{content_type};base64,".concat(base64)
 
