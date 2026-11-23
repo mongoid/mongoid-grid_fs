@@ -1,5 +1,11 @@
 name: CI
-on: [push, pull_request]
+on:
+  push:
+    branches: [master]
+  pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -7,6 +13,7 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -55,7 +62,7 @@ jobs:
           bundler: '${{ matrix.entry.bundler || ''2.4.22'' }}'
           bundler-cache: true
       - name: Run tests
-        run: bundle exec rake
+        run: bundle exec rake test
       - name: Upload coverage to Coveralls
         if: ${{ matrix.entry.coverage }}
         uses: coverallsapp/github-action@v2
