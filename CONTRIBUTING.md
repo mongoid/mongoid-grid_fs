@@ -1,23 +1,22 @@
-Contributing to Mongoid::GridFs
-===============================
+# Contributing to Mongoid::GridFs
 
 Mongoid::GridFs is work of [many of contributors](https://github.com/mongoid/mongoid-grid_fs/graphs/contributors). You're encouraged to submit [pull requests](https://github.com/mongoid/mongoid-grid_fs/pulls), [propose features, ask questions and discuss issues](https://github.com/mongoid/mongoid-grid_fs/issues).
 
-#### Fork the Project
+## Fork the Project
 
-Fork the [project on Github](https://github.com/mongoid/mongoid-grid_fs) and check out your copy.
+Fork the [project on GitHub](https://github.com/mongoid/mongoid-grid_fs) and check out your copy.
 
-```
+```sh
 git clone https://github.com/contributor/mongoid-grid_fs.git
 cd mongoid-grid_fs
 git remote add upstream https://github.com/mongoid/mongoid-grid_fs.git
 ```
 
-#### Create a Topic Branch
+### Create a Topic Branch
 
 Make sure your fork is up-to-date and create a topic branch for your feature or bug fix.
 
-```
+```sh
 git checkout master
 git pull upstream master
 git checkout -b my-feature-branch
@@ -27,22 +26,20 @@ git checkout -b my-feature-branch
 
 Ensure that you can build the project and run tests.
 
-```
+```sh
 bundle install
 bundle exec rake
 ```
 
-Tests use the `mongoid-grid_fs_test` database on localhost by default. To isolate a
-test run or use another MongoDB server, set `MONGODB_URI` to a dedicated test
-database (the suite deletes files and chunks in that database):
+Tests use the `mongoid-grid_fs_test` database on localhost by default. To isolate a test run or use another MongoDB server, set `MONGODB_URI` to a dedicated test database (the suite deletes files and chunks in that database):
 
-```
+```text
 MONGODB_URI=mongodb://localhost:27017/mongoid_gridfs_coverage bundle exec rake
 ```
 
 To collect library coverage with a modern matrix Gemfile, run:
 
-```
+```text
 COVERAGE=true BUNDLE_GEMFILE=gemfiles/mongoid-9.0.gemfile bundle exec rake
 ```
 
@@ -56,7 +53,7 @@ We definitely appreciate pull requests that highlight or reproduce a problem, ev
 
 Implement your feature or bug fix.
 
-Ruby style is enforced with [Rubocop](https://github.com/bbatsov/rubocop), run `bundle exec rubocop` and fix any style issues highlighted.
+Ruby style is enforced with [RuboCop](https://github.com/bbatsov/rubocop), run `bundle exec rubocop` and fix any style issues highlighted.
 
 Make sure that `bundle exec rake` completes without errors.
 
@@ -66,27 +63,27 @@ Document any external behavior in the [README](README.md).
 
 #### Update Changelog
 
-Add a line to [CHANGELOG](CHANGELOG.md) under *Next Release*. Make it look like every other line, including your name and link to your Github account.
+Add a line to [CHANGELOG](CHANGELOG.md) under *Next Release*. Make it look like every other line, including your name and link to your GitHub account.
 
 #### Commit Changes
 
 Make sure git knows your name and email address:
 
-```
+```sh
 git config --global user.name "Your Name"
 git config --global user.email "contributor@example.com"
 ```
 
 Writing good commit logs is important. A commit log should describe what changed and why.
 
-```
+```sh
 git add ...
 git commit
 ```
 
 #### Push
 
-```
+```sh
 git push origin my-feature-branch
 ```
 
@@ -98,7 +95,7 @@ Go to https://github.com/contributor/mongoid-grid_fs and select your feature bra
 
 If you've been working on a change for a while, rebase with upstream/master.
 
-```
+```sh
 git fetch upstream
 git rebase upstream/master
 git push origin my-feature-branch -f
@@ -108,13 +105,13 @@ git push origin my-feature-branch -f
 
 Update the [CHANGELOG](CHANGELOG.md) with the pull request number. A typical entry looks as follows.
 
-```
+```text
 * [#123](https://github.com/mongoid/mongoid-grid_fs/pull/123): Reticulated splines - [@contributor](https://github.com/contributor).
 ```
 
 Amend your previous commit and force push the changes.
 
-```
+```sh
 git commit --amend
 git push origin my-feature-branch -f
 ```

@@ -14,14 +14,13 @@ Gem::Specification.new do |spec|
   spec.license      = 'Ruby'
 
   spec.files        = Dir['{lib}/**/*'] + ['LICENSE', 'Rakefile', 'README.md']
-  spec.test_files   = Dir['test/**/*']
   spec.require_path = 'lib'
 
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rails'
-  spec.add_development_dependency 'rubocop', '~> 1.36.0'
 
   spec.add_dependency 'mime-types', '>= 1.0', '< 4.0'
   spec.add_dependency 'mongoid',    '>= 3.0', '< 10.0'
+  spec.metadata['rubygems_mfa_required'] = 'true'
 end
