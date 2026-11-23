@@ -12,3 +12,5 @@ Gemfile.danger.lock
 gemfiles/*.lock
 pkg/*
 coverage/
+/vendor/bundle
+/.bundle

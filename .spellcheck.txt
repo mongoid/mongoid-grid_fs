@@ -21,6 +21,7 @@ fredjean
 Fs
 fs
 Gemfile
+gemspec
 GridFS
 GridFs
 GridIO
@@ -29,6 +30,7 @@ Ilib
 InterfaceTests
 interfacetests
 IOProxy
+JRuby
 laCour
 linter
 localhost
@@ -36,6 +38,7 @@ md
 minitest
 Mongoid
 mongoid
+MongoidGridFsRelease
 namespace
 namespaces
 ngty
@@ -53,7 +56,9 @@ README
 Rebase
 rebase
 Rethrow
+RSpec
 RuboCop
+RubyGems
 StringIO
 TODO
 txt
