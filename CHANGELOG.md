@@ -10,6 +10,7 @@
 * [#90](https://github.com/mongoid/mongoid-grid_fs/pull/90): Lint Markdown, YAML, and spelling with rubocop-md, rubocop-prose, rubocop-spellcheck, and rubocop-yaml in a separate Lint workflow, and clean up documentation - [@dblock](https://github.com/dblock).
 * [#91](https://github.com/mongoid/mongoid-grid_fs/pull/91): Run CI pushes only on the default branch, cancel superseded pull request runs, skip duplicate lint in the test matrix, and bound job times - [@dblock](https://github.com/dblock).
 * [#92](https://github.com/mongoid/mongoid-grid_fs/pull/92): Release with ruby-gem-release from a manually dispatched GitHub Actions workflow using RubyGems Trusted Publishing, with dry runs - [@dblock](https://github.com/dblock).
+* [#94](https://github.com/mongoid/mongoid-grid_fs/pull/94): Upgrade danger-pr-comment to 0.3.0 from the `danger` organization and skip empty Danger report comments - [@dblock](https://github.com/dblock).
 
 ### 2.6.0 (2024/11/19)
 
