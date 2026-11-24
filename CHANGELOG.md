@@ -1,4 +1,4 @@
-### 2.7.0 (Next)
+### 2.7.0 (2026/11/24)
 
 * [#45](https://github.com/mongoid/mongoid-grid_fs/pull/45): Encode stored file bytes rather than the model description in Base64 and data URIs - [@yudho](https://github.com/yudho), [@dblock](https://github.com/dblock).
 * [#48](https://github.com/mongoid/mongoid-grid_fs/pull/48): Check for the specific legacy BSON classes instead of the Moped namespace - [@jeremy6d](https://github.com/jeremy6d), [@dblock](https://github.com/dblock).
@@ -7,7 +7,6 @@
 * [#85](https://github.com/mongoid/mongoid-grid_fs/pull/85): Report test coverage to Coveralls and update CI badges - [@dblock](https://github.com/dblock).
 * [#84](https://github.com/mongoid/mongoid-grid_fs/pull/84): Migrate Danger to danger-pr-comment workflows - [@dblock](https://github.com/dblock).
 * [#84](https://github.com/mongoid/mongoid-grid_fs/pull/84): Modernize CI through Ruby 4.0 and MongoDB 8 with Mongoid 9, use Bundler 2 for modern Rails, and explicitly load Logger for Rails 6 - [@dblock](https://github.com/dblock).
-* Your contribution here.
 * [#90](https://github.com/mongoid/mongoid-grid_fs/pull/90): Lint Markdown, YAML, and spelling with rubocop-md, rubocop-prose, rubocop-spellcheck, and rubocop-yaml in a separate Lint workflow, and clean up documentation - [@dblock](https://github.com/dblock).
 * [#91](https://github.com/mongoid/mongoid-grid_fs/pull/91): Run CI pushes only on the default branch, cancel superseded pull request runs, skip duplicate lint in the test matrix, and bound job times - [@dblock](https://github.com/dblock).
 * [#92](https://github.com/mongoid/mongoid-grid_fs/pull/92): Release with ruby-gem-release from a manually dispatched GitHub Actions workflow using RubyGems Trusted Publishing, with dry runs - [@dblock](https://github.com/dblock).
