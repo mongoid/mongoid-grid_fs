@@ -1,4 +1,4 @@
-### 2.6.1 (Next)
+### 2.7.0 (Next)
 
 * [#45](https://github.com/mongoid/mongoid-grid_fs/pull/45): Encode stored file bytes rather than the model description in Base64 and data URIs - [@yudho](https://github.com/yudho), [@dblock](https://github.com/dblock).
 * [#48](https://github.com/mongoid/mongoid-grid_fs/pull/48): Check for the specific legacy BSON classes instead of the Moped namespace - [@jeremy6d](https://github.com/jeremy6d), [@dblock](https://github.com/dblock).
