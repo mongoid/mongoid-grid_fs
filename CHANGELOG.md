@@ -1,3 +1,7 @@
+### 2.7.1 (Next)
+
+* Your contribution here.
+
 ### 2.7.0 (2026/11/24)
 
 * [#45](https://github.com/mongoid/mongoid-grid_fs/pull/45): Encode stored file bytes rather than the model description in Base64 and data URIs - [@yudho](https://github.com/yudho), [@dblock](https://github.com/dblock).
